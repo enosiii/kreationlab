@@ -1231,37 +1231,44 @@
     renderDesignGrid();
 
     setTimeout(() => {
-      document.querySelectorAll('#ribbonColorGrid .card-item').forEach(c => {
-        if (c.innerText.includes('Dusty Blue')) c.classList.add('selected');
-      });
-      selectedRibbon = 'Dusty Blue';
-      selectedSize = '20mm';
-      document.querySelector('#sizeGrid .card-item:last-child').classList.add('selected');
-      selectedDesign = 'DS1 with logo + date under name';
-      dateValue = getTodayDate();
-      
-      fetch(DEFAULT_LOGO_PATH)
-        .then(response => {
-          if (response.ok) {
-            fetch(DEFAULT_LOGO_PATH)
-              .then(res => res.blob())
-              .then(blob => {
-                const reader = new FileReader();
-                reader.onload = (ev) => {
-                  uploadedLogoURL = ev.target.result;
-                  updateAll();
-                };
-                reader.readAsDataURL(blob);
-              });
-          } else {
-            updateAll();
-          }
-        })
-        .catch(() => {
-          updateAll();
-        });
-    }, 30);
-    
+  document.querySelectorAll('#ribbonColorGrid .card-item').forEach(c => {
+    if (c.innerText.includes('Dusty Blue')) c.classList.add('selected');
+  });
+  selectedRibbon = 'Dusty Blue';
+  selectedSize = '20mm';
+  
+  // Fix: Select the 20mm option instead of last-child
+  document.querySelectorAll('#sizeGrid .card-item').forEach(c => {
+    if (c.dataset.size === '20mm') {
+      c.classList.add('selected');
+    }
+  });
+  
+  selectedDesign = 'DS1 with logo + date under name';
+  dateValue = getTodayDate();
+
+  fetch(DEFAULT_LOGO_PATH)
+    .then(response => {
+      if (response.ok) {
+        fetch(DEFAULT_LOGO_PATH)
+          .then(res => res.blob())
+          .then(blob => {
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+              uploadedLogoURL = ev.target.result;
+              updateAll();
+            };
+            reader.readAsDataURL(blob);
+          });
+      } else {
+        updateAll();
+      }
+    })
+    .catch(() => {
+      updateAll();
+    });
+}, 30);
+
   })();
 </script>
 </body>
