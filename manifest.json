@@ -1,23 +1,53 @@
 {
   "name": "Kreation Lab",
   "short_name": "Kreation Lab",
-  "description": "Create your own personalized satin ribbons",
+  "description": "Create your own personalized satin ribbons. Choose from 30+ colors, multiple font styles, and custom designs for weddings, birthdays, and special events.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#faf7f2",
   "theme_color": "#b0825c",
   "icons": [
     {
-      "src": "logo.png",
+      "src": "logo192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "logo.png",
+      "src": "logo512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "screenshots/ss1.jpg",
+      "sizes": "1080x1920",
+      "type": "image/jpeg",
+      "form_factor": "narrow",
+      "label": "Home screen showing design selection"
+    },
+    {
+      "src": "screenshots/ss2.jpg",
+      "sizes": "1080x1920",
+      "type": "image/jpeg",
+      "form_factor": "narrow",
+      "label": "Live Preview of Ribbon Color Selection"
+    },
+    {
+      "src": "screenshots/ss3.jpg",
+      "sizes": "1080x1920",
+      "type": "image/jpeg",
+      "form_factor": "narrow",
+      "label": "Live preview of Ribbon Size and Ink Selection"
+    },
+    {
+      "src": "screenshots/ss4.jpg",
+      "sizes": "1080x1920",
+      "type": "image/jpeg",
+      "form_factor": "narrow",
+      "label": "Live preview of Font Selection"
     }
   ]
 }
