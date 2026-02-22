@@ -460,14 +460,63 @@
       border-bottom: 3px solid #e1d5c8;
     }
 
-    .toast-footer {
-      padding: 12px 20px;
-      background: #f9f5ef;
-      display: flex;
-      justify-content: flex-end;
-      gap: 10px;
-    }
 
+/* Messenger button styling */
+.messenger-btn button {
+  background: #0084ff;
+  border: none;
+  color: white;
+  padding: 6px 16px;
+  border-radius: 30px;
+  font-weight: 500;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 3px 0 #0063b0;
+}
+
+.messenger-btn button:hover {
+  background: #0073e6;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 0 #0063b0;
+}
+
+.messenger-btn button i {
+  font-size: 1rem;
+}
+
+/* Update existing toast footer for better layout */
+.toast-footer {
+  padding: 12px 20px;
+  background: #f9f5ef;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.toast-footer button.secondary {
+  background: #e1d5c8;
+  color: #2e2e2e;
+  border: none;
+  padding: 6px 16px;
+  border-radius: 30px;
+  font-weight: 500;
+  cursor: pointer;
+  font-size: 0.85rem;
+  box-shadow: 0 3px 0 #cab9a9;
+}
+
+.toast-footer button.secondary:hover {
+  background: #d4c1af;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 0 #cab9a9;
+}
+
+    
     .toast-footer button {
       background: #b0825c;
       border: none;
@@ -484,14 +533,7 @@
       background: #9f704b;
     }
 
-    .toast-footer button.secondary {
-      background: #e1d5c8;
-      color: #2e2e2e;
-    }
-
-    .toast-footer button.secondary:hover {
-      background: #d4c1af;
-    }
+    
 
     @keyframes slideIn {
       from {
@@ -726,10 +768,12 @@
 
   
   <!-- copy summary -->
+  <!--
   <div style="display:flex; gap:1rem; align-items:center; margin:2rem 0; flex-wrap: wrap;">
     <span id="orderSummary" style="background:#e7dbcf; padding:0.5rem 1.5rem; border-radius:40px; font-size:0.9rem;"></span>
-    <button class="btn" id="copyOrderBtn"><i class="far fa-clipboard"></i> copy order message</button>
-  </div>
+    <button class="btn" id="copyOrderBtn"><i class="far fa-clipboard"></i> copy order message</button> 
+  </div> -->
+
 
   <footer style="margin-top:3rem; text-align:center; color:#7e6e5d;">
     <strong>⭐ Reminders ⭐ </strong> <br>1. This is a made-to-order product. We need extra time to process your order.<br>
@@ -1172,7 +1216,7 @@
       }
     });
     
-    document.getElementById('copyOrderBtn').addEventListener('click', () => {
+    /* document.getElementById('copyOrderBtn').addEventListener('click', () => {
       const fontCode = selectedFont.split(' ')[0];
       const designCode = selectedDesign.split(' ')[0];
       
@@ -1229,6 +1273,77 @@
         }, 8000);
       });
     });
+*/
+
+document.getElementById('copyOrderBtn').addEventListener('click', () => {
+  const fontCode = selectedFont.split(' ')[0];
+  const designCode = selectedDesign.split(' ')[0];
+
+  const line1 = `1. Text: ${customText}`;
+  const line2 = `2. Ribbon Size and Color: ${selectedSize}, ${selectedRibbon}`;
+  const line3 = `3. Ink Color: ${selectedInk}`;
+  const line4 = `4. Font Style Code: ${fontCode}`;
+  const line5 = `5. Design Style Code: ${designCode}`;
+
+  let msg = '';
+  if (designCode === 'DS1') {
+    msg = `${line1}\n${line2}\n${line3}\n${line4}\n${line5}\n6. Logo: ${uploadedLogoURL ? 'for sending' : 'none'}\n7. Date: ${dateValue || 'none'}`;
+  } else if (designCode === 'DS2') {
+    msg = `${line1}\n${line2}\n${line3}\n${line4}\n${line5}\n6. Logo: ${uploadedLogoURL ? 'for sending' : 'none'}`;
+  } else if (designCode === 'DS3') {
+    msg = `${line1}\n${line2}\n${line3}\n${line4}\n${line5}\n6. Date: ${dateValue || 'none'}`;
+  } else {
+    msg = `${line1}\n${line2}\n${line3}\n${line4}\n${line5}`;
+  }
+
+  // Encode the message for URL
+  const encodedMsg = encodeURIComponent(msg);
+  const messengerUrl = `https://m.me/kreationlab26?text=${encodedMsg}`;
+
+  // Copy to clipboard
+  navigator.clipboard.writeText(msg).then(() => {
+    // Remove any existing toast
+    const existingToast = document.querySelector('.toast-notification');
+    if (existingToast) existingToast.remove();
+
+    const toast = document.createElement('div');
+    toast.className = 'toast-notification';
+    toast.innerHTML = `
+      <div class="toast-header">
+        <i class="fas fa-check-circle"></i>
+        <span>✓ Order Message Copied!</span>
+        <span class="close-toast"><i class="fas fa-times"></i></span>
+      </div>
+      <div class="toast-body">
+        <pre style="margin:0; font-family:'Courier New', monospace; white-space:pre-wrap;">${msg}</pre>
+      </div>
+      <div class="toast-footer">
+        <button class="secondary" onclick="this.closest('.toast-notification').remove()">Close</button>
+        <a href="${messengerUrl}" target="_blank" class="messenger-btn" style="text-decoration: none;">
+          <button style="background: #0084ff; display: flex; align-items: center; gap: 0.5rem;">
+            <i class="fab fa-facebook-messenger"></i> Send to Messenger
+          </button>
+        </a>
+      </div>
+    `;
+
+    document.body.appendChild(toast);
+
+    // Close button functionality
+    toast.querySelector('.close-toast').addEventListener('click', () => {
+      toast.classList.add('fade-out');
+      setTimeout(() => toast.remove(), 300);
+    });
+
+    // Auto remove after 8 seconds
+    setTimeout(() => {
+      if (toast.parentNode) {
+        toast.classList.add('fade-out');
+        setTimeout(() => toast.remove(), 300);
+      }
+    }, 8000);
+  });
+});
 
     renderGrid('ribbonColorGrid', ribbonColors, 'color');
     renderGrid('inkGrid', inks, 'ink');
