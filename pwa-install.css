@@ -1,4 +1,3 @@
-/* pwa-install.css */
 .pwa-install-container {
   position: fixed;
   bottom: 2rem;
@@ -8,6 +7,7 @@
   width: auto;
   max-width: 90%;
   pointer-events: none;
+  display: block; /* Always visible container */
 }
 
 .pwa-install-btn {
@@ -27,12 +27,15 @@
   transition: all 0.2s ease;
   pointer-events: auto;
   border: 2px solid rgba(255,255,255,0.2);
+  margin: 0 auto;
+  white-space: nowrap;
 }
 
-.pwa-install-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 15px 30px rgba(0,0,0,0.25), 0 6px 0 #6e4f37;
-  background: #9f704b;
+/* For debugging - temporary visible button */
+.pwa-install-btn.debug {
+  display: flex !important;
+  background: #6e4f37;
+  opacity: 0.7;
 }
 
 .pwa-install-btn i {
@@ -57,7 +60,6 @@
   background: rgba(255,255,255,0.3);
 }
 
-/* For mobile devices */
 @media (max-width: 768px) {
   .pwa-install-container {
     bottom: 1rem;
@@ -66,10 +68,11 @@
   .pwa-install-btn {
     padding: 0.75rem 1.5rem;
     font-size: 0.9rem;
+    white-space: normal;
+    text-align: center;
   }
 }
 
-/* Animation for the install button */
 @keyframes slideUp {
   from {
     opacity: 0;
