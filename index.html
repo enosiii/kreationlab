@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
- <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
   <title>Kreation Lab</title>
   <link rel="icon" type="image/x-icon" href="logo.png">
@@ -43,12 +42,10 @@
   <!-- Font Awesome 6 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <!-- Google Fonts -->
-  <!-- Google Fonts - Optimized loading -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Great+Vibes&family=Montserrat&family=Cinzel&family=Garamond&family=Lovelo&family=Futura&family=Amoresa&display=swap" rel="stylesheet">
-  <!--<link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Great+Vibes&family=Montserrat&family=Cinzel&family=Literaturnaya&family=Garamond&family=Lovelo&family=Futura&family=Amoresa&family=Glacial+Indifference&display=swap" rel="stylesheet">
-  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Great+Vibes&family=Montserrat&family=Cinzel&family=Garamond&family=Lovelo&family=Futura&family=Amoresa&display=swap" rel="stylesheet">
+  
   <style>
     * {
       margin: 0;
@@ -87,15 +84,13 @@
     .logo h1 {
       font-size: 3rem;
       letter-spacing: -0.5px;
-      /*font-family: 'Great Vibes', cursive;*/
       font-family: cursive;
     }
     
-     .logo h1 span {
+    .logo h1 span {
       background: #dbc7b3;
       padding: 0.2rem 1rem 0.2rem 0.8rem;
       border-radius: 40px 12px 12px 40px;
-      /*font-family: 'Lovelo', calibri;*/
       font-family: calibri;
       font-size: 2.6rem;
       font-weight: bold;
@@ -109,6 +104,153 @@
       border-radius: 40px;
     }
 
+    /* Sticky Preview Area */
+    .preview-area {
+      background: #f0eae2;
+      border-radius: 2.5rem;
+      padding: 1.5rem;
+      margin: 1rem 0 2rem 0;
+      position: sticky;
+      top: 1rem;
+      z-index: 100;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      border: 2px solid #b59d85;
+      
+    }
+    
+    /* Add a pseudo-element for better visibility when sticky */
+    .preview-area::before {
+      content: '';
+      position: absolute;
+      top: -1rem;
+      left: 2rem;
+      right: 2rem;
+      height: 1rem;
+      border-radius: 2.5rem 2.5rem 0 0;
+      pointer-events: none;
+    }
+    
+    /* Preview header with better spacing */
+    .preview-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      background: rgba(255,255,255,0.5);
+      padding: 0.5rem 1rem;
+      border-radius: 3rem;
+    }
+    
+    .preview-header h3 {
+      margin: 0;
+      font-size: 1.2rem;
+    }
+    
+    .preview-controls {
+      display: flex;
+      gap: 0.5rem;
+    }
+    
+    .preview-toggle-btn {
+      background: white;
+      border: 2px solid #b59d85;
+      color: #2e2e2e;
+      padding: 0.4rem 1rem;
+      border-radius: 40px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+    }
+    
+    .preview-toggle-btn.active {
+      background: #b0825c;
+      border-color: #b0825c;
+      color: white;
+    }
+    
+    .ribbon-marquee-container {
+      background: #fffcf8;
+      border-radius: 60px;
+      padding: 0 0.5rem;
+      box-shadow: inset 0 -3px 0 #cfbcaa, 0 10px 16px rgba(0,0,0,0.05);
+      overflow: hidden;
+      width: 100%;
+      position: relative;
+      display: flex;
+      align-items: center;
+      transition: height 0.2s;
+      height: 5rem;
+    }
+    
+    .marquee-content {
+      display: flex;
+      white-space: nowrap;
+      position: relative;
+      will-change: transform;
+    }
+    
+    .marquee-content.static {
+      justify-content: center;
+      width: 100%;
+      gap: 3rem;
+    }
+    
+    .marquee-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 1.2rem;
+      margin-right: 3rem;
+      vertical-align: middle;
+      flex-shrink: 0;
+    }
+    
+    .static .marquee-item {
+      margin-right: 0;
+    }
+    
+    .marquee-text {
+      display: inline-block;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .marquee-date {
+      font-size: 0.7rem;
+      display: block;
+      text-align: center;
+      margin-top: 0.1rem;
+      opacity: 0.9;
+      letter-spacing: 0.5px;
+      font-weight: 400;
+    }
+    .marquee-logo {
+      height: 1.8rem;
+      width: auto;
+      display: inline-block;
+      vertical-align: middle;
+      object-fit: contain;
+    }
+
+    /* Quick summary badge */
+    .quick-summary {
+      margin-top: 0.8rem;
+      margin-bottom: 1rem;
+      background: rgba(255,255,255,0.7);
+      padding: 0.5rem 1rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .quick-summary i {
+      color: #b0825c;
+    }
+
     /* clickable cards */
     .section-title {
       font-size: 1.6rem;
@@ -116,6 +258,7 @@
       border-left: 8px solid #b59d85;
       padding-left: 1rem;
       margin: 2rem 0 1.5rem;
+      scroll-margin-top: 7rem; /* Helps with anchor scrolling */
     }
     .card-grid {
       display: flex;
@@ -160,75 +303,6 @@
       border: 1px solid #ccc;
     }
 
-    /* preview marquee */
-    .preview-area {
-      background: #f0eae2;
-      border-radius: 2.5rem;
-      padding: 2rem;
-      margin: 2.5rem 0;
-    }
-    .ribbon-marquee-container {
-      background: #fffcf8;
-      border-radius: 60px;
-      padding: 0 0.5rem;
-      box-shadow: inset 0 -3px 0 #cfbcaa, 0 10px 16px rgba(0,0,0,0.05);
-      overflow: hidden;
-      white-space: nowrap;
-      width: 100%;
-      position: relative;
-      display: flex;
-      align-items: center;
-      transition: height 0.2s;
-    }
-    .marquee-content {
-      display: inline-block;
-      white-space: nowrap;
-      animation: marquee 22s linear infinite;
-      padding-left: 100%;
-      will-change: transform;
-      line-height: 1.2;
-    }
-    @keyframes marquee {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-100%); }
-    }
-    
-/* Add media query for iOS to slow down animation */
-@supports (-webkit-touch-callout: none) {
-  .marquee-content {
-    animation-duration: 30s; /* Slower on iOS */
-  }
-}
-
-    .marquee-item {
-      display: inline-flex;
-      align-items: center;
-      gap: 1.2rem;
-      margin-right: 3rem;
-      vertical-align: middle;
-    }
-    .marquee-text {
-      display: inline-block;
-      font-weight: 600;
-      white-space: nowrap;
-    }
-    .marquee-date {
-      font-size: 0.7rem;
-      display: block;
-      text-align: center;
-      margin-top: 0.1rem;
-      opacity: 0.9;
-      letter-spacing: 0.5px;
-      font-weight: 400;
-    }
-    .marquee-logo {
-      height: 1.8rem;
-      width: auto;
-      display: inline-block;
-      vertical-align: middle;
-      object-fit: contain;
-    }
-
     /* dynamic fields */
     .dynamic-fields {
       background: #e1d5c8;
@@ -246,12 +320,16 @@
       gap: 0.8rem;
       flex-wrap: wrap;
     }
+  
     .btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
       background: #b0825c;
       border: none;
       color: white;
       font-weight: 600;
-      padding: 0.8rem 1.8rem;
+      padding: 0.4rem 1rem;
       border-radius: 3rem;
       cursor: pointer;
       box-shadow: 0 5px 0 #6e4f37;
@@ -262,10 +340,15 @@
       transform: translateY(-2px);
       box-shadow: 0 7px 0 #6e4f37;
     }
+    .btn.small {
+      padding: 0.4rem 1rem;
+      font-size: 0.9rem;
+      box-shadow: 0 3px 0 #6e4f37;
+    }
     .hidden { display: none; }
     input, select { padding: 0.6rem 1rem; border-radius: 3rem; border: 1px solid #b59d85; }
 
-    /* fixed file input - now clickable everywhere */
+    /* fixed file input */
     .file-upload {
       position: relative;
       display: inline-block;
@@ -292,7 +375,7 @@
       z-index: 1;
       cursor: pointer;
       box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-      pointer-events: none; /* label doesn't block the input */
+      pointer-events: none;
     }
     .file-upload label i {
       color: #b0825c;
@@ -320,278 +403,343 @@
     .size-25mm .marquee-date { font-size: 0.85rem; }
     
     /* Custom Toast Notification */
-.toast-notification {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background: white;
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.15), 0 0 0 1px rgba(181, 157, 133, 0.2);
-  padding: 0;
-  z-index: 9999;
-  max-width: 400px;
-  width: calc(100% - 40px);
-  animation: slideIn 0.3s ease-out forwards;
-  overflow: hidden;
-}
+    .toast-notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15), 0 0 0 1px rgba(181, 157, 133, 0.2);
+      padding: 0;
+      z-index: 9999;
+      max-width: 400px;
+      width: calc(100% - 40px);
+      animation: slideIn 0.3s ease-out forwards;
+      overflow: hidden;
+    }
 
-.toast-header {
-  background: #b0825c;
-  color: white;
-  padding: 12px 20px;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
+    .toast-header {
+      background: #b0825c;
+      color: white;
+      padding: 12px 20px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
 
-.toast-header i {
-  font-size: 1.2rem;
-}
+    .toast-header i {
+      font-size: 1.2rem;
+    }
 
-.toast-header .close-toast {
-  margin-left: auto;
-  cursor: pointer;
-  font-size: 1.2rem;
-  opacity: 0.8;
-  transition: opacity 0.2s;
-}
+    .toast-header .close-toast {
+      margin-left: auto;
+      cursor: pointer;
+      font-size: 1.2rem;
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
 
-.toast-header .close-toast:hover {
-  opacity: 1;
-}
+    .toast-header .close-toast:hover {
+      opacity: 1;
+    }
 
-.toast-body {
-  padding: 20px;
-  background: #fffcf8;
-  max-height: 300px;
-  overflow-y: auto;
-  font-family: 'Courier New', monospace;
-  font-size: 0.9rem;
-  line-height: 1.6;
-  color: #2e2e2e;
-  border-bottom: 3px solid #e1d5c8;
-}
+    .toast-body {
+      padding: 20px;
+      background: #fffcf8;
+      max-height: 300px;
+      overflow-y: auto;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: #2e2e2e;
+      border-bottom: 3px solid #e1d5c8;
+    }
 
-.toast-footer {
-  padding: 12px 20px;
-  background: #f9f5ef;
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-}
+    .toast-footer {
+      padding: 12px 20px;
+      background: #f9f5ef;
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
 
-.toast-footer button {
-  background: #b0825c;
-  border: none;
-  color: white;
-  padding: 6px 16px;
-  border-radius: 30px;
-  font-weight: 500;
-  cursor: pointer;
-  font-size: 0.85rem;
-  transition: background 0.2s;
-}
+    .toast-footer button {
+      background: #b0825c;
+      border: none;
+      color: white;
+      padding: 6px 16px;
+      border-radius: 30px;
+      font-weight: 500;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: background 0.2s;
+    }
 
-.toast-footer button:hover {
-  background: #9f704b;
-}
+    .toast-footer button:hover {
+      background: #9f704b;
+    }
 
-.toast-footer button.secondary {
-  background: #e1d5c8;
-  color: #2e2e2e;
-}
+    .toast-footer button.secondary {
+      background: #e1d5c8;
+      color: #2e2e2e;
+    }
 
-.toast-footer button.secondary:hover {
-  background: #d4c1af;
-}
+    .toast-footer button.secondary:hover {
+      background: #d4c1af;
+    }
 
-@keyframes slideIn {
-  from {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
+    @keyframes slideIn {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
 
-@keyframes fadeOut {
-  from {
-    transform: translateX(0);
-    opacity: 1;
-  }
-  to {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-}
+    @keyframes fadeOut {
+      from {
+        transform: translateX(0);
+        opacity: 1;
+      }
+      to {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+    }
 
-.toast-notification.fade-out {
-  animation: fadeOut 0.3s ease-in forwards;
-}
+    .toast-notification.fade-out {
+      animation: fadeOut 0.3s ease-in forwards;
+    }
 
-  /* Define local fonts from your /fonts/ folder */
-  @font-face {
-    font-family: 'Citadel Script';
-    src: url('/fonts/Citadel.otf') format('opentype');
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'Cinzel';
-    src: url('/fonts/Cinzel.otf') format('opentype');
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'Great Vibes';
-    src: url('/fonts/GreatVibes.otf') format('opentype');
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'Literaturnaya';
-    src: url('/fonts/Literaturnaya.woff') format('woff');
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'Garamond';
-    src: url('/fonts/Garamond.woff') format('woff');
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'Montserrat';
-    src: url('/fonts/Montserrat.ttf') format('truetype');
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'Lovelo';
-    src: url('/fonts/Lovelo.otf') format('opentype');
-    font-weight: bold;
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'Futura';
-    src: url('/fonts/Futura.woff') format('woff');
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'Amoresa';
-    src: url('/fonts/Amoresa.otf') format('opentype');
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'Glacial Indifference';
-    src: url('/fonts/GlacialIndifference.otf') format('opentype');
-    font-display: swap;
-  }
+    /* Define local fonts */
+    @font-face {
+      font-family: 'Citadel Script';
+      src: url('/fonts/Citadel.otf') format('opentype');
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Cinzel';
+      src: url('/fonts/Cinzel.otf') format('opentype');
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Great Vibes';
+      src: url('/fonts/GreatVibes.otf') format('opentype');
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Literaturnaya';
+      src: url('/fonts/Literaturnaya.woff') format('woff');
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Garamond';
+      src: url('/fonts/Garamond.woff') format('woff');
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Montserrat';
+      src: url('/fonts/Montserrat.ttf') format('truetype');
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Lovelo';
+      src: url('/fonts/Lovelo.otf') format('opentype');
+      font-weight: bold;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Futura';
+      src: url('/fonts/Futura.woff') format('woff');
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Amoresa';
+      src: url('/fonts/Amoresa.otf') format('opentype');
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Glacial Indifference';
+      src: url('/fonts/GlacialIndifference.otf') format('opentype');
+      font-display: swap;
+    }
 
-  /* Keep Inter from Google as it's your primary body font */
-  @import url('https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap');
-
+    @import url('https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap');
 
     /* iOS performance fixes */
-.ribbon-marquee-container {
-  -webkit-transform: translateZ(0); /* Force GPU acceleration */
-  transform: translateZ(0);
-  backface-visibility: hidden;
-  perspective: 1000;
-}
+    .ribbon-marquee-container {
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      backface-visibility: hidden;
+      perspective: 1000;
+    }
 
-.marquee-content {
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
-  will-change: transform;
-  animation: marquee 22s linear infinite;
-  /* Reduce animation complexity for iOS */
-  -webkit-animation: marquee 25s linear infinite;
-}
+    canvas {
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+    }
 
-/* Ensure canvas rendering works on iOS */
-canvas {
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-}
+    input, select, button {
+      -webkit-appearance: none;
+      appearance: none;
+      border-radius: 3rem;
+    }
 
-/* Fix for iOS input rendering */
-input, select, button {
-  -webkit-appearance: none;
-  appearance: none;
-  border-radius: 3rem; /* Re-apply border radius as iOS resets it */
-}
-
-/* Prevent text size adjustment on orientation change */
-html {
-  -webkit-text-size-adjust: 100%;
-  text-size-adjust: 100%;
-}
+    html {
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
     
+    /* Scroll to top button */
+    .scroll-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #b0825c;
+      color: white;
+      width: 3rem;
+      height: 3rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 5px 0 #6e4f37;
+      transition: all 0.2s;
+      z-index: 99;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+    }
+    
+    .scroll-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .scroll-top:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 7px 0 #6e4f37;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .preview-area {
+        top: 0.5rem;
+        padding: 1rem;
+      }
+      
+      .preview-header h3 {
+        font-size: 1rem;
+      }
+      
+      .preview-toggle-btn {
+        padding: 0.3rem 0.8rem;
+        font-size: 0.8rem;
+      }
+      
+      .scroll-top {
+        bottom: 1rem;
+        right: 1rem;
+      }
+    }
   </style>
 </head>
 <body>
 <div class="container">
   <div class="brand-bar">
     <div class="logo">
-  <h1>
-    <img src="logo.png" alt="Kreation Lab" style="height: 50px; width: auto; vertical-align: middle; margin-right: 8px;">
-    kreation<span>lab.</span>
-  </h1>
-</div>
+      <h1>
+        <img src="logo.png" alt="Kreation Lab" style="height: 50px; width: auto; vertical-align: middle; margin-right: 8px;">
+        kreation<span>lab.</span>
+      </h1>
+    </div>
     <div class="tagline"><i class="fas fa-ribbon"></i> your custom ribbon</div>
   </div>
 
-  <!-- RIBBON COLOR -->
-  <div class="section-title">🎀 1. Ribbon Color </div>
-  <div class="card-grid" id="ribbonColorGrid"></div>
-
-  <!-- RIBBON SIZE -->
-  <div class="section-title">📏 2. Ribbon Size</div>
-  <div class="card-grid" id="sizeGrid">
-    <div class="card-item" data-size="15mm">15 mm / 1/2"</div>
-    <div class="card-item" data-size="20mm">20 mm / 3/4"</div>
-    <div class="card-item" data-size="25mm">25 mm / 1 inch</div>
+  <!-- STICKY PREVIEW AREA - MOVED TO TOP -->
+  <div class="preview-area">
+    <div class="preview-header">
+      <h3><i class="fas fa-eye"></i> Live Preview</h3>
+      <div class="preview-controls">
+        <button id="staticViewBtn" class="preview-toggle-btn active">
+          <i class="fas fa-pause"></i> Static
+        </button>
+        <button id="scrollingViewBtn" class="preview-toggle-btn">
+          <i class="fas fa-play"></i> Scrolling
+        </button>
+      </div>
+    </div>
+    <div class="ribbon-marquee-container" id="marqueeContainer" style="background-color: #7c9ebf;">
+      <div class="marquee-content" id="marqueeContent"></div>
+    </div>
+    <div class="quick-summary" id="quickSummary">
+      <i class="fas fa-sync-alt fa-spin"></i>
+      <span>Updating preview...</span> 
+    </div>
+    <button class="btn" id="copyOrderBtn"><i class="far fa-clipboard"></i> copy order message</button>
   </div>
 
-  <!-- INK COLOR -->
-  <div class="section-title">🖋️ 3. Ink Color</div>
-  <div class="card-grid" id="inkGrid"></div>
-
-  <!-- FONT STYLE -->
-  <div class="section-title">🔤 4. Font Style</div>
-  <div class="card-grid" id="fontGrid"></div>
-
+  
   <!-- DESIGN STYLE -->
-  <div class="section-title">📐 5. Design Style</div>
+  <div class="section-title">📐 1. Design Style</div>
   <div class="card-grid" id="designGrid"></div>
-
-  <!-- dynamic extra inputs (date, logo) -->
-  <div id="dynamicDesignFields" class="dynamic-fields hidden"></div>
 
   <!-- main text input -->
   <div style="margin: 1.5rem 0;">
     <label><strong>✏️ Custom Text</strong></label>
     <input type="text" id="customText" placeholder="e.g. Your Name" value="Kreation Lab" style="width:100%; max-width:500px;">
   </div>
-
-  <!-- MARQUEE PREVIEW -->
-  <div class="preview-area">
-    <h3><i class="fas fa-eye"></i> Live Ribbon Preview</h3>
-    <div class="ribbon-marquee-container" id="marqueeContainer" style="background-color: #7c9ebf;">
-      <div class="marquee-content" id="marqueeContent"></div>
-    </div>
-    <p style="margin-top:1rem"><i class="fas fa-info-circle"></i> digital colors for reference only · actual ribbon shades may differ slightly</p>
-
-  <!-- copy summary -->
-  <div style="display:flex; gap:1rem; align-items:center; margin:2rem 0;">
-    <button class="btn" id="copyOrderBtn"><i class="far fa-clipboard"></i> copy order message</button>
-    <span id="orderSummary" style="background:#e7dbcf; padding:0.5rem 1.5rem; border-radius:40px; font-size:0.9rem;"></span>
-  </div>
+  <!-- dynamic extra inputs (date, logo) -->
+  <div id="dynamicDesignFields" class="dynamic-fields hidden"></div>
   
-  <footer style="margin-top:3rem; text-align:center; color:#7e6e5d;"><strong>⭐ Reminders ⭐ </strong> <br>1. This is a made-to-order product. We need extra time to process your order.<br>
-2. <strong>Lead time:</strong> Maximum of<strong> 7 days</strong>, depending on the availability of the ribbon size/color.<br>
-3. Send the <strong>"copied order message"</strong> to our messenger to order.<br>
-4. Once the order is finalized and ready to ship, that is the time to place or checkout your order.<br>
-5. A photo of the personalized satin ribbon will be sent before shipment.<br>
-6. For <strong>BULK ORDERS</strong>, please message us for our lowest price quotation.</footer>
+  <!-- RIBBON COLOR -->
+  <div class="section-title">🎀 2. Ribbon Color</div>
+  <div class="card-grid" id="ribbonColorGrid"></div>
+  <p style="margin-top:1rem"><i class="fas fa-info-circle"></i> digital colors for reference only · actual ribbon shades may differ slightly</p>
+
+  <!-- RIBBON SIZE -->
+  <div class="section-title">📏 3. Ribbon Size</div>
+  <div class="card-grid" id="sizeGrid">
+    <div class="card-item" data-size="15mm">15 mm / 1/2"</div>
+    <div class="card-item" data-size="20mm">20 mm / 3/4"</div>
+    <div class="card-item" data-size="25mm">25 mm / 1 inch</div>
+  </div>
+  <p style="margin-top:1rem"><i class="fas fa-info-circle"></i> 1 roll = 50 yards or 45 meter</p>
+
+  <!-- INK COLOR -->
+  <div class="section-title">🖋️ 4. Ink Color</div>
+  <div class="card-grid" id="inkGrid"></div>
+
+  <!-- FONT STYLE -->
+  <div class="section-title">🔤 5. Font Style</div>
+  <div class="card-grid" id="fontGrid"></div>
+
+
+  
+  <!-- copy summary -->
+  <div style="display:flex; gap:1rem; align-items:center; margin:2rem 0; flex-wrap: wrap;">
+    <span id="orderSummary" style="background:#e7dbcf; padding:0.5rem 1.5rem; border-radius:40px; font-size:0.9rem;"></span>
+    <button class="btn" id="copyOrderBtn"><i class="far fa-clipboard"></i> copy order message</button>
+  </div>
+
+  <footer style="margin-top:3rem; text-align:center; color:#7e6e5d;">
+    <strong>⭐ Reminders ⭐ </strong> <br>1. This is a made-to-order product. We need extra time to process your order.<br>
+    2. <strong>Lead time:</strong> Maximum of<strong> 7 days</strong>, depending on the availability of the ribbon size/color.<br>
+    3. Send the <strong>"copied order message"</strong> to our messenger to order.<br>
+    4. Once the order is finalized and ready to ship, that is the time to place or checkout your order.<br>
+    5. A photo of the personalized satin ribbon will be sent before shipment.<br>
+    6. For <strong>BULK ORDERS</strong>, please message us for our lowest price quotation.
+  </footer>
+  
+  <!-- Scroll to top button -->
+  <div class="scroll-top" id="scrollTopBtn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+    <i class="fas fa-arrow-up"></i>
+  </div>
 </div>
 
 <script>
@@ -599,76 +747,30 @@ html {
     // ---------- DATA ----------
     
     const ribbonColors = [
-  // Column 1
-  "Gray", "Light Gray", "White", "Cream", "Rustic Orange", "Apricot Yellow", 
-  "Light Latte", "Camel", "Coffee Brown", "Black",
-  
-  // Column 2
-  "Moonstone Pink", "Light orange", "Apricot Orange", "Baby Maize", 
-  "Light Yellow", "Gold",
-  
-  // Column 3
-  "Light Purple", "Pink Hermosa", "Old Rose", "Rose Mauve", "Apricot Pink",
-  
-  // Column 4
-  "Rustic Orange", "Burgundy", "Victorian Rose", "Rose Red", "Red", "Christmas Red",
-  
-  // Column 5
-  "Amethyst Green", "Celadon", "Moss Green", "Dark Green",
-  
-  // Column 6
-  "Dusty Blue", "Bluebell", "Turquoise Blue", "Sky Blue", "Midnight Blue"
-];
+      "Gray", "Light Gray", "White", "Cream", "Rustic Orange", "Apricot Yellow", 
+      "Light Latte", "Camel", "Coffee Brown", "Black",
+      "Moonstone Pink", "Light orange", "Apricot Orange", "Baby Maize", 
+      "Light Yellow", "Gold",
+      "Light Purple", "Pink Hermosa", "Old Rose", "Rose Mauve", "Apricot Pink",
+      "Rustic Orange", "Burgundy", "Victorian Rose", "Rose Red", "Red", "Christmas Red",
+      "Amethyst Green", "Celadon", "Moss Green", "Dark Green",
+      "Dusty Blue", "Bluebell", "Turquoise Blue", "Sky Blue", "Midnight Blue"
+    ];
 
-const colorHex = {
-  // Column 1
-  "Gray": "#8c8c8c",
-  "Light Gray": "#d3d3d3",
-  "White": "#ffffff",
-  "Cream": "#fefae0",
-  "Rustic Orange": "#d95f2b",
-  "Apricot Yellow": "#fdca7e",
-  "Light Latte": "#dac09c",
-  "Camel": "#c19a6b",
-  "Coffee Brown": "#6f4e37",
-  "Black": "#222222",
-  
-  // Column 2
-  "Moonstone Pink": "#f5c9cf",
-  "Light orange": "#fbc19c",
-  "Apricot Orange": "#fcb576",
-  "Baby Maize": "#fdeac5",
-  "Light Yellow": "#fff9b0",
-  "Gold": "#d4af37",
-  
-  // Column 3
-  "Light Purple": "#d7b5e0",
-  "Pink Hermosa": "#e6a8d7",  // Approximate color - adjust as needed
-  "Old Rose": "#c8756b",
-  "Rose Mauve": "#d8a1b2",
-  "Apricot Pink": "#fabbcd",
-  
-  // Column 4
-  "Rustic Orange": "#d95f2b",  // Duplicate from column 1
-  "Burgundy": "#6f2c3d",
-  "Victorian Rose": "#c08081",
-  "Rose Red": "#d65f66",
-  "Red": "#cd5c5c",
-  "Christmas Red": "#b1141a",
-  
-  // Column 5
-  "Amethyst Green": "#7c9f7c",
-  "Celadon": "#b5d6c2",
-  "Moss Green": "#5f7357",
-  "Dark Green": "#2f4f2f",
-  
-  // Column 6
-  "Dusty Blue": "#7c9ebf",
-  "Bluebell": "#98b7db",
-  "Turquoise Blue": "#6cd4c5",
-  "Sky Blue": "#aad0f5",
-  "Midnight Blue": "#191970"
-};
+    const colorHex = {
+      "Gray": "#8c8c8c", "Light Gray": "#d3d3d3", "White": "#ffffff", "Cream": "#fefae0",
+      "Rustic Orange": "#d95f2b", "Apricot Yellow": "#fdca7e", "Light Latte": "#dac09c",
+      "Camel": "#c19a6b", "Coffee Brown": "#6f4e37", "Black": "#222222",
+      "Moonstone Pink": "#f5c9cf", "Light orange": "#fbc19c", "Apricot Orange": "#fcb576",
+      "Baby Maize": "#fdeac5", "Light Yellow": "#fff9b0", "Gold": "#d4af37",
+      "Light Purple": "#d7b5e0", "Pink Hermosa": "#e6a8d7", "Old Rose": "#c8756b",
+      "Rose Mauve": "#d8a1b2", "Apricot Pink": "#fabbcd", "Burgundy": "#6f2c3d",
+      "Victorian Rose": "#c08081", "Rose Red": "#d65f66", "Red": "#cd5c5c",
+      "Christmas Red": "#b1141a", "Amethyst Green": "#7c9f7c", "Celadon": "#b5d6c2",
+      "Moss Green": "#5f7357", "Dark Green": "#2f4f2f", "Dusty Blue": "#7c9ebf",
+      "Bluebell": "#98b7db", "Turquoise Blue": "#6cd4c5", "Sky Blue": "#aad0f5",
+      "Midnight Blue": "#191970"
+    };
 
     const inks = ["BLACK","BLUE","BROWN","DARK BLUE","DARK PINK","GREEN","ORANGE","PURPLE","RED","YELLOW","WHITE","BRIGHT GOLD","METALLIC GOLD","BRIGHT SILVER"];
     const inkColors = {
@@ -691,18 +793,23 @@ const colorHex = {
 
     // state
     let selectedRibbon = "Dusty Blue";
-    let selectedSize = "25mm";      // 15mm,20mm,25mm
+    let selectedSize = "20mm";
     let selectedInk = "WHITE";
     let selectedFont = "FS2 CINZEL";
     let selectedDesign = "DS1 with logo + date under name";
     let customText = "Kreation Lab";
     let uploadedLogoURL = null;
     let colorizedLogoURL = null;
-    const DEFAULT_LOGO_PATH = 'logo.png'; // Path to your default logo
+    const DEFAULT_LOGO_PATH = 'logo.png';
 
     let dateValue = "";
+    
+    // Preview mode state
+    let isStaticMode = true;
+    let animationFrame = null;
+    let scrollPosition = 0;
+    let lastTimestamp = null;
 
-    // get today's date YYYY-MM-DD
     function getTodayDate() {
       const d = new Date();
       const year = d.getFullYear();
@@ -711,7 +818,6 @@ const colorHex = {
       return `${year}-${month}-${day}`;
     }
 
-    // colorize logo using canvas
     function colorizeLogo(imageDataURL, inkHex) {
       return new Promise((resolve) => {
         const img = new Image();
@@ -741,56 +847,21 @@ const colorHex = {
       });
     }
 
-    // map font to CSS
-   /* function mapFont(fontString) {
-      if (fontString.includes('FS1') || fontString.includes('Citadel')) return "'Great Vibes', cursive";
-      if (fontString.includes('FS2') || fontString.includes('CINZEL')) return "'Cinzel', serif";
-      if (fontString.includes('FS3') || fontString.includes('Great Vibes')) return "'Great Vibes', cursive";
-      if (fontString.includes('FS4')) return "'Literaturnaya', 'Times New Roman', serif";
+    function mapFont(fontString) {
+      if (fontString.includes('FS1')) return "'Citadel Script', cursive";
+      if (fontString.includes('FS2')) return "'Cinzel', serif";
+      if (fontString.includes('FS3')) return "'Great Vibes', cursive";
+      if (fontString.includes('FS4')) return "'Literaturnaya', serif";
       if (fontString.includes('FS5')) return "'Garamond', serif";
       if (fontString.includes('FS6')) return "'Montserrat', sans-serif";
       if (fontString.includes('FS7')) return "'Lovelo', sans-serif";
       if (fontString.includes('FS8')) return "'Futura', sans-serif";
       if (fontString.includes('FS9')) return "'Amoresa', cursive";
       if (fontString.includes('FS10')) return "'Glacial Indifference', sans-serif";
-      return 'Inter';
-    }*/
-    
+      return "'Inter', sans-serif";
+    }
 
-    // map font to CSS - with better fallbacks
-/*
-function mapFont(fontString) {
-  if (fontString.includes('FS1') || fontString.includes('Citadel')) return "'Great Vibes', 'Brush Script MT', cursive";
-  if (fontString.includes('FS2') || fontString.includes('CINZEL')) return "'Cinzel', 'Times New Roman', serif";
-  if (fontString.includes('FS3') || fontString.includes('Great Vibes')) return "'Great Vibes', 'Brush Script MT', cursive";
-  if (fontString.includes('FS4')) return "'Literaturnaya', 'Times New Roman', 'Georgia', serif";
-  if (fontString.includes('FS5')) return "'Garamond', 'Times New Roman', serif";
-  if (fontString.includes('FS6')) return "'Montserrat', 'Arial', sans-serif";
-  if (fontString.includes('FS7')) return "'Lovelo', 'Arial Black', 'Helvetica Bold', sans-serif";
-  if (fontString.includes('FS8')) return "'Futura', 'Arial', sans-serif";
-  if (fontString.includes('FS9')) return "'Amoresa', 'Brush Script MT', cursive";
-  if (fontString.includes('FS10')) return "'Glacial Indifference', 'Arial', 'Helvetica', sans-serif";
-  return "'Inter', 'Arial', sans-serif";
-}
-*/
-
-function mapFont(fontString) {
-  if (fontString.includes('FS1')) return "'Citadel Script', cursive";
-  if (fontString.includes('FS2')) return "'Cinzel', serif";
-  if (fontString.includes('FS3')) return "'Great Vibes', cursive";
-  if (fontString.includes('FS4')) return "'Literaturnaya', serif";
-  if (fontString.includes('FS5')) return "'Garamond', serif";
-  if (fontString.includes('FS6')) return "'Montserrat', sans-serif";
-  if (fontString.includes('FS7')) return "'Lovelo', sans-serif";
-  if (fontString.includes('FS8')) return "'Futura', sans-serif";
-  if (fontString.includes('FS9')) return "'Amoresa', cursive";
-  if (fontString.includes('FS10')) return "'Glacial Indifference', sans-serif";
-  return "'Inter', sans-serif";
-}
-
-    // build marquee content
-    async function buildMarqueeContent() {
-      const marquee = document.getElementById('marqueeContent');
+    function buildMarqueeItems() {
       const inkHex = inkColors[selectedInk] || '#000000';
       const fontFamily = mapFont(selectedFont);
       
@@ -801,23 +872,108 @@ function mapFont(fontString) {
       }
       const showLogo = (selectedDesign.startsWith('DS1') || selectedDesign.startsWith('DS2')) && colorizedLogoURL;
 
-      let altHtml = '';
-      const totalPairs = 12;
-      for (let i = 0; i < totalPairs; i++) {
-        altHtml += `<span class="marquee-item" style="color:${inkHex};">`;
-        altHtml += `<span class="marquee-text" style="font-family:${fontFamily};">${mainText}`;
-        if (datePart) {
-          altHtml += `<span class="marquee-date">${datePart}</span>`;
-        }
-        altHtml += `</span></span>`;
+      let items = [];
+      
+      if (isStaticMode) {
         if (showLogo) {
-          altHtml += `<span class="marquee-item"><img class="marquee-logo" src="${colorizedLogoURL}" alt="logo"></span>`;
+          items.push(`<span class="marquee-item"><img class="marquee-logo" src="${colorizedLogoURL}" alt="logo"></span>`);
+        }
+        
+        let textHtml = `<span class="marquee-item"><span class="marquee-text" style="font-family:${fontFamily};color:${inkHex};">${mainText}`;
+        if (datePart) {
+          textHtml += `<span class="marquee-date">${datePart}</span>`;
+        }
+        textHtml += `</span></span>`;
+        items.push(textHtml);
+        
+        if (showLogo) {
+          items.push(`<span class="marquee-item"><img class="marquee-logo" src="${colorizedLogoURL}" alt="logo"></span>`);
+        }
+      } else {
+        const totalPairs = 12;
+        for (let i = 0; i < totalPairs; i++) {
+          let textHtml = `<span class="marquee-item"><span class="marquee-text" style="font-family:${fontFamily};color:${inkHex};">${mainText}`;
+          if (datePart) {
+            textHtml += `<span class="marquee-date">${datePart}</span>`;
+          }
+          textHtml += `</span></span>`;
+          items.push(textHtml);
+          
+          if (showLogo) {
+            items.push(`<span class="marquee-item"><img class="marquee-logo" src="${colorizedLogoURL}" alt="logo"></span>`);
+          }
         }
       }
-      marquee.innerHTML = altHtml;
+      
+      return items;
     }
 
-    // update preview: ribbon color, height class, logo tint, marquee
+    function updateMarqueeContent() {
+      const marquee = document.getElementById('marqueeContent');
+      const items = buildMarqueeItems();
+      marquee.innerHTML = items.join('');
+      
+      if (isStaticMode) {
+        marquee.classList.add('static');
+      } else {
+        marquee.classList.remove('static');
+      }
+      
+      scrollPosition = 0;
+      if (!isStaticMode) {
+        startScrolling();
+      } else {
+        stopScrolling();
+      }
+    }
+
+    function startScrolling() {
+      stopScrolling();
+      
+      const marqueeContent = document.getElementById('marqueeContent');
+      const container = document.getElementById('marqueeContainer');
+      
+      if (!marqueeContent || !container || isStaticMode) return;
+      
+      const contentWidth = marqueeContent.scrollWidth;
+      
+      function scroll(timestamp) {
+        if (!lastTimestamp) {
+          lastTimestamp = timestamp;
+          animationFrame = requestAnimationFrame(scroll);
+          return;
+        }
+        
+        const deltaTime = timestamp - lastTimestamp;
+        scrollPosition += deltaTime * 0.05;
+        
+        if (scrollPosition >= contentWidth) {
+          scrollPosition = 0;
+        }
+        
+        marqueeContent.style.transform = `translateX(-${scrollPosition}px)`;
+        
+        lastTimestamp = timestamp;
+        animationFrame = requestAnimationFrame(scroll);
+      }
+      
+      lastTimestamp = null;
+      animationFrame = requestAnimationFrame(scroll);
+    }
+
+    function stopScrolling() {
+      if (animationFrame) {
+        cancelAnimationFrame(animationFrame);
+        animationFrame = null;
+      }
+      lastTimestamp = null;
+      
+      const marqueeContent = document.getElementById('marqueeContent');
+      if (marqueeContent) {
+        marqueeContent.style.transform = 'translateX(0)';
+      }
+    }
+
     async function updatePreview() {
       const container = document.getElementById('marqueeContainer');
       container.style.backgroundColor = colorHex[selectedRibbon] || '#7c9ebf';
@@ -837,15 +993,15 @@ function mapFont(fontString) {
         colorizedLogoURL = null;
       }
 
-      await buildMarqueeContent();
+      updateMarqueeContent();
 
       const fontCode = selectedFont.split(' ')[0];
       const designCode = selectedDesign.split(' ')[0];
-      document.getElementById('orderSummary').innerText = 
-        `${customText} / ${selectedSize} ${selectedRibbon} / ink:${selectedInk} / ${fontCode} / ${designCode}`;
+      const summary = `${customText} / ${selectedSize} ${selectedRibbon} / ink:${selectedInk} / ${fontCode} / ${designCode}`;
+      document.getElementById('orderSummary').innerText = summary;
+      document.getElementById('quickSummary').innerHTML = `<i class="fas fa-check-circle" style="color:#b0825c;"></i> <span>${summary}</span>`;
     }
 
-    // render grids
     function renderGrid(containerId, items, type) {
       const grid = document.getElementById(containerId);
       if (!grid) return;
@@ -878,7 +1034,6 @@ function mapFont(fontString) {
       });
     }
 
-    // design grid
     function renderDesignGrid() {
       const grid = document.getElementById('designGrid');
       grid.innerHTML = '';
@@ -898,7 +1053,6 @@ function mapFont(fontString) {
       });
     }
 
-    // size listeners
     document.querySelectorAll('#sizeGrid .card-item').forEach(card => {
       card.addEventListener('click', function() {
         document.querySelectorAll('#sizeGrid .card-item').forEach(c => c.classList.remove('selected'));
@@ -908,7 +1062,6 @@ function mapFont(fontString) {
       });
     });
 
-    // dynamic fields (with working file input)
     function updateDynamicFields() {
       const container = document.getElementById('dynamicDesignFields');
       container.innerHTML = ''; 
@@ -930,12 +1083,12 @@ function mapFont(fontString) {
         if (!dateValue) dateValue = today;
         const dateDiv = document.createElement('div');
         dateDiv.className = 'field-group';
-        dateDiv.innerHTML = `<label>📅 date</label><input type="date" id="designDateInput" value="${dateValue}">`;
+        dateDiv.innerHTML = `<label>📅 Date:</label><input type="date" id="designDateInput" value="${dateValue}">`;
         container.appendChild(dateDiv);
       }
       if (needsLogo) {
         const logoDiv = document.createElement('div');
-        logoDiv.className = 'field-group file-upload';   // critical: file-upload class for positioning
+        logoDiv.className = 'field-group file-upload';
         logoDiv.innerHTML = `
           <input type="file" id="logoUploadInput" accept="image/png, image/jpeg">
           <label><i class="fas fa-cloud-upload-alt"></i> Choose Logo (PNG)</label>
@@ -970,146 +1123,144 @@ function mapFont(fontString) {
       updateDynamicFields();
       await updatePreview();
     }
+    
     document.getElementById('customText').addEventListener('input', (e) => {
       customText = e.target.value;
       updateAll();
     });
     
-    /* document.getElementById('copyOrderBtn').addEventListener('click', () => {
-      const fontCode = selectedFont.split(' ')[0];
-      const designCode = selectedDesign.split(' ')[0];
-      const msg = `1. Text: ${customText} 
-2. Ribbon Size and Color: ${selectedSize}, ${selectedRibbon} 
-3. Ink Color: ${selectedInk} 
-4. Font Style Code: ${fontCode} 
-5. Design Style Code: ${designCode} 
-6. Logo: ${uploadedLogoURL?'uploaded':'none'} Date: ${dateValue||'none'}`;
-      navigator.clipboard.writeText(msg).then(() => alert(`📋 Order Message copied!
-        
-${msg}`));
-    }); */
+    document.getElementById('staticViewBtn').addEventListener('click', function() {
+      if (isStaticMode) return;
       
-      document.getElementById('copyOrderBtn').addEventListener('click', () => {
-  const fontCode = selectedFont.split(' ')[0];      // e.g. "FS2"
-  const designCode = selectedDesign.split(' ')[0];  // e.g. "DS1"
-  
-  // Common lines
-  const line1 = `1. Text: ${customText}`;
-  const line2 = `2. Ribbon Size and Color: ${selectedSize}, ${selectedRibbon}`;
-  const line3 = `3. Ink Color: ${selectedInk}`;
-  const line4 = `4. Font Style Code: ${fontCode}`;
-  const line5 = `5. Design Style Code: ${designCode}`;
-
-  let msg = '';
-  if (designCode === 'DS1') {
-    msg = `${line1}\n${line2}\n${line3}\n${line4}\n${line5}\n6. Logo: ${uploadedLogoURL ? 'for sending' : 'none'}\n7. Date: ${dateValue || 'none'}`;
-  } else if (designCode === 'DS2') {
-    msg = `${line1}\n${line2}\n${line3}\n${line4}\n${line5}\n6. Logo: ${uploadedLogoURL ? 'for sending' : 'none'}`;
-  } else if (designCode === 'DS3') {
-    msg = `${line1}\n${line2}\n${line3}\n${line4}\n${line5}\n6. Date: ${dateValue || 'none'}`;
-  } else { // DS4
-    msg = `${line1}\n${line2}\n${line3}\n${line4}\n${line5}`;
-  }
-
-  // Copy to clipboard
-  navigator.clipboard.writeText(msg).then(() => {
-    // Remove any existing toast
-    const existingToast = document.querySelector('.toast-notification');
-    if (existingToast) existingToast.remove();
-    
-    // Create custom toast
-    const toast = document.createElement('div');
-    toast.className = 'toast-notification';
-    toast.innerHTML = `
-      <div class="toast-header">
-        <i class="fas fa-check-circle"></i>
-        <span>✓ Order Message Copied!</span>
-        <span class="close-toast"><i class="fas fa-times"></i></span>
-      </div>
-      <div class="toast-body">
-        <pre style="margin:0; font-family:'Courier New', monospace; white-space:pre-wrap;">${msg}</pre>
-      </div>
-      <div class="toast-footer">
-        <button class="secondary" onclick="this.closest('.toast-notification').remove()">Close</button>
-        <button onclick="navigator.clipboard.writeText(\`${msg.replace(/`/g, '\\`')}\`); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy Again', 1000)">Copy Again</button>
-      </div>
-    `;
-    
-    document.body.appendChild(toast);
-    
-    // Close button functionality
-    toast.querySelector('.close-toast').addEventListener('click', () => {
-      toast.classList.add('fade-out');
-      setTimeout(() => toast.remove(), 300);
+      isStaticMode = true;
+      this.classList.add('active');
+      document.getElementById('scrollingViewBtn').classList.remove('active');
+      
+      stopScrolling();
+      updateMarqueeContent();
     });
     
-    // Auto remove after 8 seconds
-    setTimeout(() => {
-      if (toast.parentNode) {
-        toast.classList.add('fade-out');
-        setTimeout(() => toast.remove(), 300);
+    document.getElementById('scrollingViewBtn').addEventListener('click', function() {
+      if (!isStaticMode) return;
+      
+      isStaticMode = false;
+      this.classList.add('active');
+      document.getElementById('staticViewBtn').classList.remove('active');
+      
+      updateMarqueeContent();
+    });
+    
+    window.addEventListener('resize', () => {
+      if (!isStaticMode) {
+        stopScrolling();
+        startScrolling();
       }
-    }, 8000);
-  });
-});
+    });
+    
+    // Scroll to top button visibility
+    window.addEventListener('scroll', () => {
+      const scrollTopBtn = document.getElementById('scrollTopBtn');
+      if (window.scrollY > 300) {
+        scrollTopBtn.classList.add('visible');
+      } else {
+        scrollTopBtn.classList.remove('visible');
+      }
+    });
+    
+    document.getElementById('copyOrderBtn').addEventListener('click', () => {
+      const fontCode = selectedFont.split(' ')[0];
+      const designCode = selectedDesign.split(' ')[0];
+      
+      const line1 = `1. Text: ${customText}`;
+      const line2 = `2. Ribbon Size and Color: ${selectedSize}, ${selectedRibbon}`;
+      const line3 = `3. Ink Color: ${selectedInk}`;
+      const line4 = `4. Font Style Code: ${fontCode}`;
+      const line5 = `5. Design Style Code: ${designCode}`;
 
-    // initialise
+      let msg = '';
+      if (designCode === 'DS1') {
+        msg = `${line1}\n${line2}\n${line3}\n${line4}\n${line5}\n6. Logo: ${uploadedLogoURL ? 'for sending' : 'none'}\n7. Date: ${dateValue || 'none'}`;
+      } else if (designCode === 'DS2') {
+        msg = `${line1}\n${line2}\n${line3}\n${line4}\n${line5}\n6. Logo: ${uploadedLogoURL ? 'for sending' : 'none'}`;
+      } else if (designCode === 'DS3') {
+        msg = `${line1}\n${line2}\n${line3}\n${line4}\n${line5}\n6. Date: ${dateValue || 'none'}`;
+      } else {
+        msg = `${line1}\n${line2}\n${line3}\n${line4}\n${line5}`;
+      }
+
+      navigator.clipboard.writeText(msg).then(() => {
+        const existingToast = document.querySelector('.toast-notification');
+        if (existingToast) existingToast.remove();
+        
+        const toast = document.createElement('div');
+        toast.className = 'toast-notification';
+        toast.innerHTML = `
+          <div class="toast-header">
+            <i class="fas fa-check-circle"></i>
+            <span>✓ Order Message Copied!</span>
+            <span class="close-toast"><i class="fas fa-times"></i></span>
+          </div>
+          <div class="toast-body">
+            <pre style="margin:0; font-family:'Courier New', monospace; white-space:pre-wrap;">${msg}</pre>
+          </div>
+          <div class="toast-footer">
+            <button class="secondary" onclick="this.closest('.toast-notification').remove()">Close</button>
+            <button onclick="navigator.clipboard.writeText(\`${msg.replace(/`/g, '\\`')}\`); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy Again', 1000)">Copy Again</button>
+          </div>
+        `;
+        
+        document.body.appendChild(toast);
+        
+        toast.querySelector('.close-toast').addEventListener('click', () => {
+          toast.classList.add('fade-out');
+          setTimeout(() => toast.remove(), 300);
+        });
+        
+        setTimeout(() => {
+          if (toast.parentNode) {
+            toast.classList.add('fade-out');
+            setTimeout(() => toast.remove(), 300);
+          }
+        }, 8000);
+      });
+    });
+
     renderGrid('ribbonColorGrid', ribbonColors, 'color');
     renderGrid('inkGrid', inks, 'ink');
     renderGrid('fontGrid', fonts, 'font');
     renderDesignGrid();
 
-/*
     setTimeout(() => {
       document.querySelectorAll('#ribbonColorGrid .card-item').forEach(c => {
         if (c.innerText.includes('Dusty Blue')) c.classList.add('selected');
       });
       selectedRibbon = 'Dusty Blue';
-      selectedSize = '25mm';
+      selectedSize = '20mm';
       document.querySelector('#sizeGrid .card-item:last-child').classList.add('selected');
-      selectedDesign = 'DS3 name with date only';
+      selectedDesign = 'DS1 with logo + date under name';
       dateValue = getTodayDate();
-      updateAll();
+      
+      fetch(DEFAULT_LOGO_PATH)
+        .then(response => {
+          if (response.ok) {
+            fetch(DEFAULT_LOGO_PATH)
+              .then(res => res.blob())
+              .then(blob => {
+                const reader = new FileReader();
+                reader.onload = (ev) => {
+                  uploadedLogoURL = ev.target.result;
+                  updateAll();
+                };
+                reader.readAsDataURL(blob);
+              });
+          } else {
+            updateAll();
+          }
+        })
+        .catch(() => {
+          updateAll();
+        });
     }, 30);
-*/
-// Add this near the top of your script with the other state variables
-
-// Update the initialization section at the bottom of your script
-setTimeout(() => {
-  document.querySelectorAll('#ribbonColorGrid .card-item').forEach(c => {
-    if (c.innerText.includes('Dusty Blue')) c.classList.add('selected');
-  });
-  selectedRibbon = 'Dusty Blue';
-  selectedSize = '25mm';
-  document.querySelector('#sizeGrid .card-item:last-child').classList.add('selected');
-  selectedDesign = 'DS1 with logo + date under name';
-  dateValue = getTodayDate();
-  
-  // Load default logo.png for DS1 preview
-  fetch(DEFAULT_LOGO_PATH)
-    .then(response => {
-      if (response.ok) {
-        // Convert logo.png to data URL
-        fetch(DEFAULT_LOGO_PATH)
-          .then(res => res.blob())
-          .then(blob => {
-            const reader = new FileReader();
-            reader.onload = (ev) => {
-              uploadedLogoURL = ev.target.result;
-              updateAll();
-            };
-            reader.readAsDataURL(blob);
-          });
-      } else {
-        // If logo.png not found, just update without it
-        updateAll();
-      }
-    })
-    .catch(() => {
-      // If error loading logo, update without it
-      updateAll();
-    });
-}, 30);
     
   })();
 </script>
