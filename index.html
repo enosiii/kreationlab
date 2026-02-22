@@ -793,7 +793,7 @@
 
     // state
     let selectedRibbon = "Dusty Blue";
-    let selectedSize = "20mm";
+    let selectedSize = "15mm";
     let selectedInk = "WHITE";
     let selectedFont = "FS2 CINZEL";
     let selectedDesign = "DS1 with logo + date under name";
@@ -1235,11 +1235,11 @@
     if (c.innerText.includes('Dusty Blue')) c.classList.add('selected');
   });
   selectedRibbon = 'Dusty Blue';
-  selectedSize = '20mm';
+  selectedSize = '15mm';
   
-  // Fix: Select the 20mm option instead of last-child
+  // Fix: Select the 15mm option instead of last-child
   document.querySelectorAll('#sizeGrid .card-item').forEach(c => {
-    if (c.dataset.size === '20mm') {
+    if (c.dataset.size === '15mm') {
       c.classList.add('selected');
     }
   });
