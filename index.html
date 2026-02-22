@@ -742,6 +742,17 @@
   </div>
 </div>
 
+
+<!-- PWA Install Prompt -->
+<link rel="stylesheet" href="pwa-install.css">
+<div class="pwa-install-container">
+  <button id="pwaInstallBtn" class="pwa-install-btn">
+    <i class="fas fa-download"></i>
+    <span>Install Kreation Lab</span>
+    <span class="close-btn" onclick="this.closest('.pwa-install-container').style.display='none'">&times;</span>
+  </button>
+</div>
+<script src="pwa-install.js"></script>
 <script>
   (function() {
     // ---------- DATA ----------
@@ -1271,15 +1282,5 @@
 
   })();
 </script>
-<!-- PWA Install Prompt -->
-<link rel="stylesheet" href="pwa-install.css">
-<div class="pwa-install-container">
-  <button id="pwaInstallBtn" class="pwa-install-btn">
-    <i class="fas fa-download"></i>
-    <span>Install Kreation Lab</span>
-    <span class="close-btn" onclick="this.closest('.pwa-install-container').style.display='none'">&times;</span>
-  </button>
-</div>
-<script src="pwa-install.js"></script>
 </body>
 </html>
