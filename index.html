@@ -6,6 +6,10 @@
   <title>Kreation Lab</title>
   <link rel="icon" type="image/x-icon" href="logo.png">
 
+<!-- In the <head> section -->
+<link rel="manifest" href="manifest.json">
+
+
 <!-- Primary Meta Tags -->
 <meta name="description" content="Create your own personalized satin ribbons with Kreation Lab. Choose from 30+ colors, multiple font styles, and custom designs for weddings, birthdays, and special events. Made-to-order with fast lead time." />
 <meta name="keywords" content="personalized ribbons, satin ribbons, custom ribbons, wedding ribbons, event ribbons, printed ribbons, Kreation Lab, custom logo ribbons" />
@@ -743,16 +747,6 @@
 </div>
 
 
-<!-- PWA Install Prompt -->
-<link rel="stylesheet" href="pwa-install.css">
-<div class="pwa-install-container">
-  <button id="pwaInstallBtn" class="pwa-install-btn">
-    <i class="fas fa-download"></i>
-    <span>Install Kreation Lab</span>
-    <span class="close-btn" onclick="this.closest('.pwa-install-container').style.display='none'">&times;</span>
-  </button>
-</div>
-<script src="pwa-install.js"></script>
 <script>
   (function() {
     // ---------- DATA ----------
@@ -1282,5 +1276,34 @@
 
   })();
 </script>
+
+<!-- Just before closing </body> -->
+<link rel="stylesheet" href="pwa-install.css">
+<div class="pwa-install-container">
+  <button id="pwaInstallBtn" class="pwa-install-btn">
+    <i class="fas fa-download"></i>
+    <span>Install Kreation Lab</span>
+    <span class="close-btn" onclick="event.stopPropagation();this.closest('.pwa-install-container').style.display='none'">&times;</span>
+  </button>
+</div>
+
+<script>
+  // Service Worker Registration
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('sw.js')
+        .then(registration => {
+          console.log('ServiceWorker registered: ', registration);
+        })
+        .catch(error => {
+          console.log('ServiceWorker registration failed: ', error);
+        });
+    });
+  }
+</script>
+
+<script src="pwa-install.js"></script>
+
+
 </body>
 </html>
