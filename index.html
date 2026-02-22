@@ -428,28 +428,64 @@
 
 .toast-notification.fade-out {
   animation: fadeOut 0.3s ease-in forwards;
-
-  /* Add this after your existing styles */
-@font-face {
-  font-family: 'Literaturnaya';
-  src: local('Times New Roman'), local('Georgia');
-  font-display: swap;
 }
 
-@font-face {
-  font-family: 'Glacial Indifference';
-  src: local('Arial'), local('Helvetica');
-  font-display: swap;
-}
+  /* Define local fonts from your /fonts/ folder */
+  @font-face {
+    font-family: 'Citadel Script';
+    src: url('/fonts/Citadel.otf') format('opentype');
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Cinzel';
+    src: url('/fonts/Cinzel.otf') format('opentype');
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Great Vibes';
+    src: url('/fonts/GreatVibes.otf') format('opentype');
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Literaturnaya';
+    src: url('/fonts/Literaturnaya.woff') format('woff');
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Garamond';
+    src: url('/fonts/Garamond.woff') format('woff');
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Montserrat';
+    src: url('/fonts/Montserrat.ttf') format('truetype');
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Lovelo';
+    src: url('/fonts/Lovelo.otf') format('opentype');
+    font-weight: bold;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Futura';
+    src: url('/fonts/Futura.woff') format('woff');
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Amoresa';
+    src: url('/fonts/Amoresa.otf') format('opentype');
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Glacial Indifference';
+    src: url('/fonts/GlacialIndifference.otf') format('opentype');
+    font-display: swap;
+  }
 
-@font-face {
-  font-family: 'Lovelo';
-  src: local('Arial Black'), local('Helvetica Bold');
-  font-weight: bold;
-  font-display: swap;
-}
-  
-}
+  /* Keep Inter from Google as it's your primary body font */
+  @import url('https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap');
+
 
     /* iOS performance fixes */
 .ribbon-marquee-container {
@@ -718,7 +754,9 @@ const colorHex = {
       return 'Inter';
     }*/
     
+
     // map font to CSS - with better fallbacks
+/*
 function mapFont(fontString) {
   if (fontString.includes('FS1') || fontString.includes('Citadel')) return "'Great Vibes', 'Brush Script MT', cursive";
   if (fontString.includes('FS2') || fontString.includes('CINZEL')) return "'Cinzel', 'Times New Roman', serif";
@@ -731,6 +769,21 @@ function mapFont(fontString) {
   if (fontString.includes('FS9')) return "'Amoresa', 'Brush Script MT', cursive";
   if (fontString.includes('FS10')) return "'Glacial Indifference', 'Arial', 'Helvetica', sans-serif";
   return "'Inter', 'Arial', sans-serif";
+}
+*/
+
+function mapFont(fontString) {
+  if (fontString.includes('FS1')) return "'Citadel Script', cursive";
+  if (fontString.includes('FS2')) return "'Cinzel', serif";
+  if (fontString.includes('FS3')) return "'Great Vibes', cursive";
+  if (fontString.includes('FS4')) return "'Literaturnaya', serif";
+  if (fontString.includes('FS5')) return "'Garamond', serif";
+  if (fontString.includes('FS6')) return "'Montserrat', sans-serif";
+  if (fontString.includes('FS7')) return "'Lovelo', sans-serif";
+  if (fontString.includes('FS8')) return "'Futura', sans-serif";
+  if (fontString.includes('FS9')) return "'Amoresa', cursive";
+  if (fontString.includes('FS10')) return "'Glacial Indifference', sans-serif";
+  return "'Inter', sans-serif";
 }
 
     // build marquee content
