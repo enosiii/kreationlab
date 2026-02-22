@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kreation Lab · fixed upload + dynamic font size</title>
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Great+Vibes&family=Montserrat&family=Cinzel&family=Literaturnaya&family=Garamond&family=Lovelo&family=Futura&family=Amoresa&family=Glacial+Indifference&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #faf7f2;
+      font-family: 'Inter', sans-serif;
+      color: #2e2e2e;
+      line-height: 1.5;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 2.5rem;
+      box-shadow: 0 20px 40px -10px rgba(0,0,0,0.15);
+      padding: 2rem 2rem 2.5rem;
+    }
+
+    .brand-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      border-bottom: 3px double #d4c9be;
+      padding-bottom: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .logo h1 {
+      font-size: 3rem;
+      letter-spacing: -0.5px;
+      font-family: 'Great Vibes', cursive;
+    }
+    
+     .logo h1 span {
+      background: #dbc7b3;
+      padding: 0.2rem 1rem 0.2rem 0.8rem;
+      border-radius: 40px 12px 12px 40px;
+      font-family: 'Lovelo', calibri;
+      font-size: 2.6rem;
+      font-weight: bold;
+      margin-left: 0.3rem;
+      display: inline-block;
+    }
+    
+    .tagline {
+      background: #eeeae3;
+      padding: 0.4rem 1.2rem;
+      border-radius: 40px;
+    }
+
+    /* clickable cards */
+    .section-title {
+      font-size: 1.6rem;
+      font-weight: 500;
+      border-left: 8px solid #b59d85;
+      padding-left: 1rem;
+      margin: 2rem 0 1.5rem;
+    }
+    .card-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      background: #fefcf9;
+      padding: 1.5rem;
+      border-radius: 28px;
+      border: 1px solid #e2d7cb;
+    }
+    .card-item {
+      background: white;
+      border-radius: 40px;
+      padding: 0.5rem 1.2rem;
+      border: 2px solid transparent;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+      cursor: pointer;
+      transition: all 0.1s;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .card-item.selected {
+      border-color: #b0825c;
+      background: #fff3e9;
+      box-shadow: 0 4px 0 #cab9a9;
+    }
+    .color-dot {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 1px solid rgba(0,0,0,0.1);
+      margin-right: 4px;
+    }
+    .ink-swatch {
+      display: inline-block;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      margin-right: 6px;
+      border: 1px solid #ccc;
+    }
+
+    /* preview marquee */
+    .preview-area {
+      background: #f0eae2;
+      border-radius: 2.5rem;
+      padding: 2rem;
+      margin: 2.5rem 0;
+    }
+    .ribbon-marquee-container {
+      background: #fffcf8;
+      border-radius: 60px;
+      padding: 0 0.5rem;
+      box-shadow: inset 0 -3px 0 #cfbcaa, 0 10px 16px rgba(0,0,0,0.05);
+      overflow: hidden;
+      white-space: nowrap;
+      width: 100%;
+      position: relative;
+      display: flex;
+      align-items: center;
+      transition: height 0.2s;
+    }
+    .marquee-content {
+      display: inline-block;
+      white-space: nowrap;
+      animation: marquee 22s linear infinite;
+      padding-left: 100%;
+      will-change: transform;
+      line-height: 1.2;
+    }
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+
+    .marquee-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 1.2rem;
+      margin-right: 3rem;
+      vertical-align: middle;
+    }
+    .marquee-text {
+      display: inline-block;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .marquee-date {
+      font-size: 0.7rem;
+      display: block;
+      text-align: center;
+      margin-top: 0.1rem;
+      opacity: 0.9;
+      letter-spacing: 0.5px;
+      font-weight: 400;
+    }
+    .marquee-logo {
+      height: 1.8rem;
+      width: auto;
+      display: inline-block;
+      vertical-align: middle;
+      object-fit: contain;
+    }
+
+    /* dynamic fields */
+    .dynamic-fields {
+      background: #e1d5c8;
+      border-radius: 2rem;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      align-items: center;
+    }
+    .field-group {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+    .btn {
+      background: #b0825c;
+      border: none;
+      color: white;
+      font-weight: 600;
+      padding: 0.8rem 1.8rem;
+      border-radius: 3rem;
+      cursor: pointer;
+      box-shadow: 0 5px 0 #6e4f37;
+      transition: 0.1s;
+    }
+    .btn:hover {
+      background: #9f704b;
+      transform: translateY(-2px);
+      box-shadow: 0 7px 0 #6e4f37;
+    }
+    .hidden { display: none; }
+    input, select { padding: 0.6rem 1rem; border-radius: 3rem; border: 1px solid #b59d85; }
+
+    /* fixed file input - now clickable everywhere */
+    .file-upload {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+    }
+    .file-upload input {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
+      z-index: 2;
+    }
+    .file-upload label {
+      background: white;
+      padding: 0.6rem 2rem 0.6rem 2.8rem;
+      border-radius: 3rem;
+      border: 1px solid #b59d85;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      position: relative;
+      z-index: 1;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      pointer-events: none; /* label doesn't block the input */
+    }
+    .file-upload label i {
+      color: #b0825c;
+      font-size: 1.2rem;
+    }
+    .file-upload:hover label {
+      background: #f9f2ea;
+    }
+
+    /* size classes for container height and font */
+    .size-15mm { height: 3.2rem; }
+    .size-20mm { height: 4rem; }
+    .size-25mm { height: 5rem; }
+
+    .size-15mm .marquee-text { font-size: 1.1rem; }
+    .size-20mm .marquee-text { font-size: 1.6rem; }
+    .size-25mm .marquee-text { font-size: 2rem; }
+
+    .size-15mm .marquee-logo { height: 1.4rem; }
+    .size-20mm .marquee-logo { height: 2rem; }
+    .size-25mm .marquee-logo { height: 2.5rem; }
+
+    .size-15mm .marquee-date { font-size: 0.55rem; }
+    .size-20mm .marquee-date { font-size: 0.7rem; }
+    .size-25mm .marquee-date { font-size: 0.85rem; }
+    
+    /* Custom Toast Notification */
+.toast-notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15), 0 0 0 1px rgba(181, 157, 133, 0.2);
+  padding: 0;
+  z-index: 9999;
+  max-width: 400px;
+  width: calc(100% - 40px);
+  animation: slideIn 0.3s ease-out forwards;
+  overflow: hidden;
+}
+
+.toast-header {
+  background: #b0825c;
+  color: white;
+  padding: 12px 20px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.toast-header i {
+  font-size: 1.2rem;
+}
+
+.toast-header .close-toast {
+  margin-left: auto;
+  cursor: pointer;
+  font-size: 1.2rem;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.toast-header .close-toast:hover {
+  opacity: 1;
+}
+
+.toast-body {
+  padding: 20px;
+  background: #fffcf8;
+  max-height: 300px;
+  overflow-y: auto;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #2e2e2e;
+  border-bottom: 3px solid #e1d5c8;
+}
+
+.toast-footer {
+  padding: 12px 20px;
+  background: #f9f5ef;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.toast-footer button {
+  background: #b0825c;
+  border: none;
+  color: white;
+  padding: 6px 16px;
+  border-radius: 30px;
+  font-weight: 500;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background 0.2s;
+}
+
+.toast-footer button:hover {
+  background: #9f704b;
+}
+
+.toast-footer button.secondary {
+  background: #e1d5c8;
+  color: #2e2e2e;
+}
+
+.toast-footer button.secondary:hover {
+  background: #d4c1af;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+.toast-notification.fade-out {
+  animation: fadeOut 0.3s ease-in forwards;
+}
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="brand-bar">
+    <div class="logo">
+  <h1>
+    <img src="logo.png" alt="Kreation Lab" style="height: 40px; width: auto; vertical-align: middle; margin-right: 8px;">
+    kreation<span>lab.</span>
+  </h1>
+</div>
+    <div class="tagline"><i class="fas fa-ribbon"></i> your custom ribbon</div>
+  </div>
+
+  <!-- RIBBON COLOR -->
+  <div class="section-title">🎀 1. Ribbon Color </div>
+  <div class="card-grid" id="ribbonColorGrid"></div>
+
+  <!-- RIBBON SIZE -->
+  <div class="section-title">📏 2. Ribbon Size</div>
+  <div class="card-grid" id="sizeGrid">
+    <div class="card-item" data-size="15mm">15 mm / 1/2"</div>
+    <div class="card-item" data-size="20mm">20 mm / 3/4"</div>
+    <div class="card-item" data-size="25mm">25 mm / 1 inch</div>
+  </div>
+
+  <!-- INK COLOR -->
+  <div class="section-title">🖋️ 3. Ink Color</div>
+  <div class="card-grid" id="inkGrid"></div>
+
+  <!-- FONT STYLE -->
+  <div class="section-title">🔤 4. Font Style</div>
+  <div class="card-grid" id="fontGrid"></div>
+
+  <!-- DESIGN STYLE -->
+  <div class="section-title">📐 5. Design Style</div>
+  <div class="card-grid" id="designGrid"></div>
+
+  <!-- dynamic extra inputs (date, logo) -->
+  <div id="dynamicDesignFields" class="dynamic-fields hidden"></div>
+
+  <!-- main text input -->
+  <div style="margin: 1.5rem 0;">
+    <label><strong>✏️ Custom Text</strong></label>
+    <input type="text" id="customText" placeholder="e.g. Your Name" value="Kreation Lab" style="width:100%; max-width:500px;">
+  </div>
+
+  <!-- MARQUEE PREVIEW -->
+  <div class="preview-area">
+    <h3><i class="fas fa-eye"></i> Live Ribbon Preview</h3>
+    <div class="ribbon-marquee-container" id="marqueeContainer" style="background-color: #7c9ebf;">
+      <div class="marquee-content" id="marqueeContent"></div>
+    </div>
+    <p style="margin-top:1rem"><i class="fas fa-info-circle"></i> digital colors for reference only · actual ribbon shades may differ slightly</p>
+
+  <!-- copy summary -->
+  <div style="display:flex; gap:1rem; align-items:center; margin:2rem 0;">
+    <button class="btn" id="copyOrderBtn"><i class="far fa-clipboard"></i> copy order message</button>
+    <span id="orderSummary" style="background:#e7dbcf; padding:0.5rem 1.5rem; border-radius:40px; font-size:0.9rem;"></span>
+  </div>
+  
+  <footer style="margin-top:3rem; text-align:center; color:#7e6e5d;"><strong>⭐ Reminders ⭐ </strong> <br>1. This is a made-to-order product. We need extra time to process your order.<br>
+2. <strong>Lead time:</strong> Maximum of<strong> 7 days</strong>, depending on the availability of the ribbon size/color.<br>
+3. Send the <strong>"copied order message"</strong> to our messenger to order.<br>
+4. Once the order is finalized and ready to ship, that is the time to place or checkout your order.<br>
+5. A photo of the personalized satin ribbon will be sent before shipment.<br>
+6. For <strong>BULK ORDERS</strong>, please message us for our lowest price quotation.</footer>
+</div>
+
+<script>
+  (function() {
+    // ---------- DATA ----------
+    
+    const ribbonColors = [
+  // Column 1
+  "Gray", "Light Gray", "White", "Cream", "Rustic Orange", "Apricot Yellow", 
+  "Light Latte", "Camel", "Coffee Brown", "Black",
+  
+  // Column 2
+  "Moonstone Pink", "Light orange", "Apricot Orange", "Baby Maize", 
+  "Light Yellow", "Gold",
+  
+  // Column 3
+  "Light Purple", "Pink Hermosa", "Old Rose", "Rose Mauve", "Apricot Pink",
+  
+  // Column 4
+  "Rustic Orange", "Burgundy", "Victorian Rose", "Rose Red", "Red", "Christmas Red",
+  
+  // Column 5
+  "Amethyst Green", "Celadon", "Moss Green", "Dark Green",
+  
+  // Column 6
+  "Dusty Blue", "Bluebell", "Turquoise Blue", "Sky Blue", "Midnight Blue"
+];
+
+const colorHex = {
+  // Column 1
+  "Gray": "#8c8c8c",
+  "Light Gray": "#d3d3d3",
+  "White": "#ffffff",
+  "Cream": "#fefae0",
+  "Rustic Orange": "#d95f2b",
+  "Apricot Yellow": "#fdca7e",
+  "Light Latte": "#dac09c",
+  "Camel": "#c19a6b",
+  "Coffee Brown": "#6f4e37",
+  "Black": "#222222",
+  
+  // Column 2
+  "Moonstone Pink": "#f5c9cf",
+  "Light orange": "#fbc19c",
+  "Apricot Orange": "#fcb576",
+  "Baby Maize": "#fdeac5",
+  "Light Yellow": "#fff9b0",
+  "Gold": "#d4af37",
+  
+  // Column 3
+  "Light Purple": "#d7b5e0",
+  "Pink Hermosa": "#e6a8d7",  // Approximate color - adjust as needed
+  "Old Rose": "#c8756b",
+  "Rose Mauve": "#d8a1b2",
+  "Apricot Pink": "#fabbcd",
+  
+  // Column 4
+  "Rustic Orange": "#d95f2b",  // Duplicate from column 1
+  "Burgundy": "#6f2c3d",
+  "Victorian Rose": "#c08081",
+  "Rose Red": "#d65f66",
+  "Red": "#cd5c5c",
+  "Christmas Red": "#b1141a",
+  
+  // Column 5
+  "Amethyst Green": "#7c9f7c",
+  "Celadon": "#b5d6c2",
+  "Moss Green": "#5f7357",
+  "Dark Green": "#2f4f2f",
+  
+  // Column 6
+  "Dusty Blue": "#7c9ebf",
+  "Bluebell": "#98b7db",
+  "Turquoise Blue": "#6cd4c5",
+  "Sky Blue": "#aad0f5",
+  "Midnight Blue": "#191970"
+};
+
+    const inks = ["BLACK","BLUE","BROWN","DARK BLUE","DARK PINK","GREEN","ORANGE","PURPLE","RED","YELLOW","WHITE","BRIGHT GOLD","METALLIC GOLD","BRIGHT SILVER"];
+    const inkColors = {
+      "BLACK":"#222","BLUE":"#3366cc","BROWN":"#8b4513","DARK BLUE":"#1e3a5f","DARK PINK":"#d62763","GREEN":"#2e7d32",
+      "ORANGE":"#f57c00","PURPLE":"#6a1b9a","RED":"#c62828","YELLOW":"#fdd835","WHITE":"#f5f5f5","BRIGHT GOLD":"#f5c542",
+      "METALLIC GOLD":"#b8860b","BRIGHT SILVER":"#a0aab5"
+    };
+
+    const fonts = [
+      "FS1 Citadel Script","FS2 CINZEL","FS3 Great Vibes","FS4 Literaturnaya","FS5 Garamond",
+      "FS6 Montserrat","FS7 LOVELO","FS8 Futura","FS9 Amoresa","FS10 Glacial Indifference"
+    ];
+
+    const designs = [
+      "DS1 with logo + date under name",
+      "DS2 name with logo only",
+      "DS3 name with date only",
+      "DS4 name only"
+    ];
+
+    // state
+    let selectedRibbon = "Dusty Blue";
+    let selectedSize = "25mm";      // 15mm,20mm,25mm
+    let selectedInk = "WHITE";
+    let selectedFont = "FS2 CINZEL";
+    let selectedDesign = "DS1 with logo + date under name";
+    let customText = "Kreation Lab";
+    let uploadedLogoURL = null;
+    let colorizedLogoURL = null;
+    const DEFAULT_LOGO_PATH = 'logo.png'; // Path to your default logo
+
+    let dateValue = "";
+
+    // get today's date YYYY-MM-DD
+    function getTodayDate() {
+      const d = new Date();
+      const year = d.getFullYear();
+      const month = String(d.getMonth() + 1).padStart(2,'0');
+      const day = String(d.getDate()).padStart(2,'0');
+      return `${year}-${month}-${day}`;
+    }
+
+    // colorize logo using canvas
+    function colorizeLogo(imageDataURL, inkHex) {
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          canvas.width = img.width;
+          canvas.height = img.height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0);
+          const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+          const data = imageData.data;
+          let r = parseInt(inkHex.slice(1,3),16);
+          let g = parseInt(inkHex.slice(3,5),16);
+          let b = parseInt(inkHex.slice(5,7),16);
+          for (let i = 0; i < data.length; i += 4) {
+            if (data[i+3] > 10) { 
+              data[i] = r;
+              data[i+1] = g;
+              data[i+2] = b;
+            }
+          }
+          ctx.putImageData(imageData, 0, 0);
+          resolve(canvas.toDataURL('image/png'));
+        };
+        img.src = imageDataURL;
+      });
+    }
+
+    // map font to CSS
+    function mapFont(fontString) {
+      if (fontString.includes('FS1') || fontString.includes('Citadel')) return "'Great Vibes', cursive";
+      if (fontString.includes('FS2') || fontString.includes('CINZEL')) return "'Cinzel', serif";
+      if (fontString.includes('FS3') || fontString.includes('Great Vibes')) return "'Great Vibes', cursive";
+      if (fontString.includes('FS4')) return "'Literaturnaya', 'Times New Roman', serif";
+      if (fontString.includes('FS5')) return "'Garamond', serif";
+      if (fontString.includes('FS6')) return "'Montserrat', sans-serif";
+      if (fontString.includes('FS7')) return "'Lovelo', sans-serif";
+      if (fontString.includes('FS8')) return "'Futura', sans-serif";
+      if (fontString.includes('FS9')) return "'Amoresa', cursive";
+      if (fontString.includes('FS10')) return "'Glacial Indifference', sans-serif";
+      return 'Inter';
+    }
+
+    // build marquee content
+    async function buildMarqueeContent() {
+      const marquee = document.getElementById('marqueeContent');
+      const inkHex = inkColors[selectedInk] || '#000000';
+      const fontFamily = mapFont(selectedFont);
+      
+      let mainText = customText || 'Your text';
+      let datePart = '';
+      if ((selectedDesign.startsWith('DS1') || selectedDesign.startsWith('DS3')) && dateValue) {
+        datePart = dateValue;
+      }
+      const showLogo = (selectedDesign.startsWith('DS1') || selectedDesign.startsWith('DS2')) && colorizedLogoURL;
+
+      let altHtml = '';
+      const totalPairs = 12;
+      for (let i = 0; i < totalPairs; i++) {
+        altHtml += `<span class="marquee-item" style="color:${inkHex};">`;
+        altHtml += `<span class="marquee-text" style="font-family:${fontFamily};">${mainText}`;
+        if (datePart) {
+          altHtml += `<span class="marquee-date">${datePart}</span>`;
+        }
+        altHtml += `</span></span>`;
+        if (showLogo) {
+          altHtml += `<span class="marquee-item"><img class="marquee-logo" src="${colorizedLogoURL}" alt="logo"></span>`;
+        }
+      }
+      marquee.innerHTML = altHtml;
+    }
+
+    // update preview: ribbon color, height class, logo tint, marquee
+    async function updatePreview() {
+      const container = document.getElementById('marqueeContainer');
+      container.style.backgroundColor = colorHex[selectedRibbon] || '#7c9ebf';
+      
+      container.classList.remove('size-15mm', 'size-20mm', 'size-25mm');
+      if (selectedSize === '15mm') container.classList.add('size-15mm');
+      else if (selectedSize === '20mm') container.classList.add('size-20mm');
+      else if (selectedSize === '25mm') container.classList.add('size-25mm');
+
+      const inkHex = inkColors[selectedInk] || '#000000';
+
+      if (uploadedLogoURL && (selectedDesign.startsWith('DS1') || selectedDesign.startsWith('DS2'))) {
+        try {
+          colorizedLogoURL = await colorizeLogo(uploadedLogoURL, inkHex);
+        } catch (e) { colorizedLogoURL = uploadedLogoURL; }
+      } else {
+        colorizedLogoURL = null;
+      }
+
+      await buildMarqueeContent();
+
+      const fontCode = selectedFont.split(' ')[0];
+      const designCode = selectedDesign.split(' ')[0];
+      document.getElementById('orderSummary').innerText = 
+        `${customText} / ${selectedSize} ${selectedRibbon} / ink:${selectedInk} / ${fontCode} / ${designCode}`;
+    }
+
+    // render grids
+    function renderGrid(containerId, items, type) {
+      const grid = document.getElementById(containerId);
+      if (!grid) return;
+      grid.innerHTML = '';
+      items.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'card-item';
+        if (type === 'color') {
+          card.innerHTML = `<span class="color-dot" style="background:${colorHex[item]};"></span>${item}`;
+          card.dataset.value = item;
+          if (item === selectedRibbon) card.classList.add('selected');
+        } else if (type === 'ink') {
+          card.innerHTML = `<span class="ink-swatch" style="background:${inkColors[item]};"></span>${item}`;
+          card.dataset.value = item;
+          if (item === selectedInk) card.classList.add('selected');
+        } else if (type === 'font') {
+          card.innerText = item;
+          card.dataset.value = item;
+          if (item === selectedFont) card.classList.add('selected');
+        }
+        card.addEventListener('click', () => {
+          grid.querySelectorAll('.card-item').forEach(c => c.classList.remove('selected'));
+          card.classList.add('selected');
+          if (type === 'color') { selectedRibbon = card.dataset.value; }
+          else if (type === 'ink') { selectedInk = card.dataset.value; }
+          else if (type === 'font') { selectedFont = card.dataset.value; }
+          updateAll();
+        });
+        grid.appendChild(card);
+      });
+    }
+
+    // design grid
+    function renderDesignGrid() {
+      const grid = document.getElementById('designGrid');
+      grid.innerHTML = '';
+      designs.forEach(d => {
+        const card = document.createElement('div');
+        card.className = 'card-item';
+        card.innerText = d;
+        card.dataset.value = d;
+        if (d === selectedDesign) card.classList.add('selected');
+        card.addEventListener('click', () => {
+          document.querySelectorAll('#designGrid .card-item').forEach(c => c.classList.remove('selected'));
+          card.classList.add('selected');
+          selectedDesign = card.dataset.value;
+          updateAll();
+        });
+        grid.appendChild(card);
+      });
+    }
+
+    // size listeners
+    document.querySelectorAll('#sizeGrid .card-item').forEach(card => {
+      card.addEventListener('click', function() {
+        document.querySelectorAll('#sizeGrid .card-item').forEach(c => c.classList.remove('selected'));
+        this.classList.add('selected');
+        selectedSize = this.dataset.size;
+        updateAll();
+      });
+    });
+
+    // dynamic fields (with working file input)
+    function updateDynamicFields() {
+      const container = document.getElementById('dynamicDesignFields');
+      container.innerHTML = ''; 
+      let needsDate = false;
+      let needsLogo = false;
+
+      if (selectedDesign.startsWith('DS1')) { needsDate = true; needsLogo = true; }
+      else if (selectedDesign.startsWith('DS2')) { needsLogo = true; }
+      else if (selectedDesign.startsWith('DS3')) { needsDate = true; }
+
+      if (!needsDate && !needsLogo) {
+        container.classList.add('hidden');
+        return;
+      }
+      container.classList.remove('hidden');
+
+      if (needsDate) {
+        const today = getTodayDate();
+        if (!dateValue) dateValue = today;
+        const dateDiv = document.createElement('div');
+        dateDiv.className = 'field-group';
+        dateDiv.innerHTML = `<label>📅 date</label><input type="date" id="designDateInput" value="${dateValue}">`;
+        container.appendChild(dateDiv);
+      }
+      if (needsLogo) {
+        const logoDiv = document.createElement('div');
+        logoDiv.className = 'field-group file-upload';   // critical: file-upload class for positioning
+        logoDiv.innerHTML = `
+          <input type="file" id="logoUploadInput" accept="image/png, image/jpeg">
+          <label><i class="fas fa-cloud-upload-alt"></i> Choose Logo (PNG)</label>
+        `;
+        container.appendChild(logoDiv);
+        if (uploadedLogoURL) {
+          const thumb = document.createElement('img');
+          thumb.src = uploadedLogoURL;
+          thumb.style.maxWidth = '70px'; thumb.style.maxHeight = '40px'; thumb.style.borderRadius = '8px'; thumb.style.marginLeft = '10px';
+          logoDiv.appendChild(thumb);
+        }
+      }
+
+      document.getElementById('designDateInput')?.addEventListener('change', (e) => {
+        dateValue = e.target.value;
+        updateAll();
+      });
+      document.getElementById('logoUploadInput')?.addEventListener('change', async (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = (ev) => { 
+            uploadedLogoURL = ev.target.result; 
+            updateAll(); 
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+    }
+
+    async function updateAll() {
+      updateDynamicFields();
+      await updatePreview();
+    }
+    document.getElementById('customText').addEventListener('input', (e) => {
+      customText = e.target.value;
+      updateAll();
+    });
+    
+    /* document.getElementById('copyOrderBtn').addEventListener('click', () => {
+      const fontCode = selectedFont.split(' ')[0];
+      const designCode = selectedDesign.split(' ')[0];
+      const msg = `1. Text: ${customText} 
+2. Ribbon Size and Color: ${selectedSize}, ${selectedRibbon} 
+3. Ink Color: ${selectedInk} 
+4. Font Style Code: ${fontCode} 
+5. Design Style Code: ${designCode} 
+6. Logo: ${uploadedLogoURL?'uploaded':'none'} Date: ${dateValue||'none'}`;
+      navigator.clipboard.writeText(msg).then(() => alert(`📋 Order Message copied!
+        
+${msg}`));
+    }); */
+      
+      document.getElementById('copyOrderBtn').addEventListener('click', () => {
+  const fontCode = selectedFont.split(' ')[0];      // e.g. "FS2"
+  const designCode = selectedDesign.split(' ')[0];  // e.g. "DS1"
+  
+  // Common lines
+  const line1 = `1. Text: ${customText}`;
+  const line2 = `2. Ribbon Size and Color: ${selectedSize}, ${selectedRibbon}`;
+  const line3 = `3. Ink Color: ${selectedInk}`;
+  const line4 = `4. Font Style Code: ${fontCode}`;
+  const line5 = `5. Design Style Code: ${designCode}`;
+
+  let msg = '';
+  if (designCode === 'DS1') {
+    msg = `${line1}\n${line2}\n${line3}\n${line4}\n${line5}\n6. Logo: ${uploadedLogoURL ? 'uploaded' : 'none'}\n7. Date: ${dateValue || 'none'}`;
+  } else if (designCode === 'DS2') {
+    msg = `${line1}\n${line2}\n${line3}\n${line4}\n${line5}\n6. Date: ${dateValue || 'none'}`;
+  } else if (designCode === 'DS3') {
+    msg = `${line1}\n${line2}\n${line3}\n${line4}\n${line5}\n6. Date: ${dateValue || 'none'}`;
+  } else { // DS4
+    msg = `${line1}\n${line2}\n${line3}\n${line4}\n${line5}`;
+  }
+
+  // Copy to clipboard
+  navigator.clipboard.writeText(msg).then(() => {
+    // Remove any existing toast
+    const existingToast = document.querySelector('.toast-notification');
+    if (existingToast) existingToast.remove();
+    
+    // Create custom toast
+    const toast = document.createElement('div');
+    toast.className = 'toast-notification';
+    toast.innerHTML = `
+      <div class="toast-header">
+        <i class="fas fa-check-circle"></i>
+        <span>✓ Order Message Copied!</span>
+        <span class="close-toast"><i class="fas fa-times"></i></span>
+      </div>
+      <div class="toast-body">
+        <pre style="margin:0; font-family:'Courier New', monospace; white-space:pre-wrap;">${msg}</pre>
+      </div>
+      <div class="toast-footer">
+        <button class="secondary" onclick="this.closest('.toast-notification').remove()">Close</button>
+        <button onclick="navigator.clipboard.writeText(\`${msg.replace(/`/g, '\\`')}\`); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy Again', 1000)">Copy Again</button>
+      </div>
+    `;
+    
+    document.body.appendChild(toast);
+    
+    // Close button functionality
+    toast.querySelector('.close-toast').addEventListener('click', () => {
+      toast.classList.add('fade-out');
+      setTimeout(() => toast.remove(), 300);
+    });
+    
+    // Auto remove after 8 seconds
+    setTimeout(() => {
+      if (toast.parentNode) {
+        toast.classList.add('fade-out');
+        setTimeout(() => toast.remove(), 300);
+      }
+    }, 8000);
+  });
+});
+
+    // initialise
+    renderGrid('ribbonColorGrid', ribbonColors, 'color');
+    renderGrid('inkGrid', inks, 'ink');
+    renderGrid('fontGrid', fonts, 'font');
+    renderDesignGrid();
+
+/*
+    setTimeout(() => {
+      document.querySelectorAll('#ribbonColorGrid .card-item').forEach(c => {
+        if (c.innerText.includes('Dusty Blue')) c.classList.add('selected');
+      });
+      selectedRibbon = 'Dusty Blue';
+      selectedSize = '25mm';
+      document.querySelector('#sizeGrid .card-item:last-child').classList.add('selected');
+      selectedDesign = 'DS3 name with date only';
+      dateValue = getTodayDate();
+      updateAll();
+    }, 30);
+*/
+// Add this near the top of your script with the other state variables
+
+// Update the initialization section at the bottom of your script
+setTimeout(() => {
+  document.querySelectorAll('#ribbonColorGrid .card-item').forEach(c => {
+    if (c.innerText.includes('Dusty Blue')) c.classList.add('selected');
+  });
+  selectedRibbon = 'Dusty Blue';
+  selectedSize = '25mm';
+  document.querySelector('#sizeGrid .card-item:last-child').classList.add('selected');
+  selectedDesign = 'DS1 with logo + date under name';
+  dateValue = getTodayDate();
+  
+  // Load default logo.png for DS1 preview
+  fetch(DEFAULT_LOGO_PATH)
+    .then(response => {
+      if (response.ok) {
+        // Convert logo.png to data URL
+        fetch(DEFAULT_LOGO_PATH)
+          .then(res => res.blob())
+          .then(blob => {
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+              uploadedLogoURL = ev.target.result;
+              updateAll();
+            };
+            reader.readAsDataURL(blob);
+          });
+      } else {
+        // If logo.png not found, just update without it
+        updateAll();
+      }
+    })
+    .catch(() => {
+      // If error loading logo, update without it
+      updateAll();
+    });
+}, 30);
+    
+  })();
+</script>
+</body>
+</html>
