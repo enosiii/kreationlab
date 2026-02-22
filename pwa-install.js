@@ -1,6 +1,4 @@
 // pwa-install.js
-// Custom PWA install prompt handler
-
 class PWAInstallHandler {
   constructor(buttonId = 'pwaInstallBtn') {
     this.deferredPrompt = null;
@@ -15,8 +13,18 @@ class PWAInstallHandler {
   }
   
   init() {
+    console.log('PWA Install Handler initialized');
+    
+    // Check if already in standalone mode
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+      console.log('App is already installed (standalone mode)');
+      this.hideInstallButton();
+      return;
+    }
+    
     // Listen for the beforeinstallprompt event
     window.addEventListener('beforeinstallprompt', (e) => {
+      console.log('beforeinstallprompt event fired!');
       // Prevent Chrome 67 and earlier from automatically showing the prompt
       e.preventDefault();
       // Stash the event so it can be triggered later
@@ -27,28 +35,50 @@ class PWAInstallHandler {
     
     // Listen for app installed event
     window.addEventListener('appinstalled', () => {
+      console.log('PWA was installed');
       // Clear the deferred prompt
       this.deferredPrompt = null;
       // Hide the install button
       this.hideInstallButton();
-      // Log installation
-      console.log('PWA was installed');
     });
     
     // Add click handler to the install button
     this.installButton.addEventListener('click', () => this.installPWA());
     
-    // Check if already in standalone mode (already installed)
-    if (window.matchMedia('(display-mode: standalone)').matches) {
-      this.hideInstallButton();
+    // Add close button handler
+    const closeBtn = this.installButton.querySelector('.close-btn');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        this.hideInstallButton();
+      });
     }
+    
+    // If after 5 seconds no beforeinstallprompt event, log it
+    setTimeout(() => {
+      if (!this.deferredPrompt) {
+        console.log('No beforeinstallprompt event received. Check PWA criteria:');
+        console.log('- HTTPS required (localhost works)');
+        console.log('- Valid manifest.json with icons');
+        console.log('- Service worker registered');
+        console.log('- User has visited site at least twice with 5 minutes between visits');
+      }
+    }, 5000);
   }
   
   showInstallButton() {
-    this.installButton.style.display = 'flex'; // or 'block' depending on your CSS
+    console.log('Showing install button');
+    this.installButton.style.display = 'flex';
+    
+    // Also show the container if it's hidden
+    const container = document.querySelector('.pwa-install-container');
+    if (container) {
+      container.style.display = 'block';
+    }
   }
   
   hideInstallButton() {
+    console.log('Hiding install button');
     this.installButton.style.display = 'none';
   }
   
@@ -58,6 +88,7 @@ class PWAInstallHandler {
       return;
     }
     
+    console.log('Showing install prompt');
     // Show the install prompt
     this.deferredPrompt.prompt();
     
