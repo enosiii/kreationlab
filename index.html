@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
   <title>Kreation Lab</title>
   <link rel="icon" type="image/x-icon" href="logo.png">
 
@@ -42,7 +43,12 @@
   <!-- Font Awesome 6 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Great+Vibes&family=Montserrat&family=Cinzel&family=Literaturnaya&family=Garamond&family=Lovelo&family=Futura&family=Amoresa&family=Glacial+Indifference&display=swap" rel="stylesheet">
+  <!-- Google Fonts - Optimized loading -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Great+Vibes&family=Montserrat&family=Cinzel&family=Garamond&family=Lovelo&family=Futura&family=Amoresa&display=swap" rel="stylesheet">
+  <!--<link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Great+Vibes&family=Montserrat&family=Cinzel&family=Literaturnaya&family=Garamond&family=Lovelo&family=Futura&family=Amoresa&family=Glacial+Indifference&display=swap" rel="stylesheet">
+  -->
   <style>
     * {
       margin: 0;
@@ -184,6 +190,13 @@
       0% { transform: translateX(0); }
       100% { transform: translateX(-100%); }
     }
+    
+/* Add media query for iOS to slow down animation */
+@supports (-webkit-touch-callout: none) {
+  .marquee-content {
+    animation-duration: 30s; /* Slower on iOS */
+  }
+}
 
     .marquee-item {
       display: inline-flex;
@@ -415,7 +428,65 @@
 
 .toast-notification.fade-out {
   animation: fadeOut 0.3s ease-in forwards;
+
+  /* Add this after your existing styles */
+@font-face {
+  font-family: 'Literaturnaya';
+  src: local('Times New Roman'), local('Georgia');
+  font-display: swap;
 }
+
+@font-face {
+  font-family: 'Glacial Indifference';
+  src: local('Arial'), local('Helvetica');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Lovelo';
+  src: local('Arial Black'), local('Helvetica Bold');
+  font-weight: bold;
+  font-display: swap;
+}
+  
+}
+
+    /* iOS performance fixes */
+.ribbon-marquee-container {
+  -webkit-transform: translateZ(0); /* Force GPU acceleration */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000;
+}
+
+.marquee-content {
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  will-change: transform;
+  animation: marquee 22s linear infinite;
+  /* Reduce animation complexity for iOS */
+  -webkit-animation: marquee 25s linear infinite;
+}
+
+/* Ensure canvas rendering works on iOS */
+canvas {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* Fix for iOS input rendering */
+input, select, button {
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 3rem; /* Re-apply border radius as iOS resets it */
+}
+
+/* Prevent text size adjustment on orientation change */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+    
   </style>
 </head>
 <body>
@@ -633,7 +704,7 @@ const colorHex = {
     }
 
     // map font to CSS
-    function mapFont(fontString) {
+   /* function mapFont(fontString) {
       if (fontString.includes('FS1') || fontString.includes('Citadel')) return "'Great Vibes', cursive";
       if (fontString.includes('FS2') || fontString.includes('CINZEL')) return "'Cinzel', serif";
       if (fontString.includes('FS3') || fontString.includes('Great Vibes')) return "'Great Vibes', cursive";
@@ -645,7 +716,22 @@ const colorHex = {
       if (fontString.includes('FS9')) return "'Amoresa', cursive";
       if (fontString.includes('FS10')) return "'Glacial Indifference', sans-serif";
       return 'Inter';
-    }
+    }*/
+    
+    // map font to CSS - with better fallbacks
+function mapFont(fontString) {
+  if (fontString.includes('FS1') || fontString.includes('Citadel')) return "'Great Vibes', 'Brush Script MT', cursive";
+  if (fontString.includes('FS2') || fontString.includes('CINZEL')) return "'Cinzel', 'Times New Roman', serif";
+  if (fontString.includes('FS3') || fontString.includes('Great Vibes')) return "'Great Vibes', 'Brush Script MT', cursive";
+  if (fontString.includes('FS4')) return "'Literaturnaya', 'Times New Roman', 'Georgia', serif";
+  if (fontString.includes('FS5')) return "'Garamond', 'Times New Roman', serif";
+  if (fontString.includes('FS6')) return "'Montserrat', 'Arial', sans-serif";
+  if (fontString.includes('FS7')) return "'Lovelo', 'Arial Black', 'Helvetica Bold', sans-serif";
+  if (fontString.includes('FS8')) return "'Futura', 'Arial', sans-serif";
+  if (fontString.includes('FS9')) return "'Amoresa', 'Brush Script MT', cursive";
+  if (fontString.includes('FS10')) return "'Glacial Indifference', 'Arial', 'Helvetica', sans-serif";
+  return "'Inter', 'Arial', sans-serif";
+}
 
     // build marquee content
     async function buildMarqueeContent() {
