@@ -119,7 +119,9 @@
       z-index: 100;
       box-shadow: 0 10px 30px rgba(0,0,0,0.15);
       border: 2px solid #b59d85;
-      
+      display: flex;
+  flex-direction: column;
+  align-items: center;
     }
     
     /* Add a pseudo-element for better visibility when sticky */
@@ -143,6 +145,7 @@
       background: rgba(255,255,255,0.5);
       padding: 0.5rem 1rem;
       border-radius: 3rem;
+      width: 100%;
     }
     
     .preview-header h3 {
@@ -768,11 +771,11 @@
 
   
   <!-- copy summary -->
-  <!--
+  
   <div style="display:flex; gap:1rem; align-items:center; margin:2rem 0; flex-wrap: wrap;">
-    <span id="orderSummary" style="background:#e7dbcf; padding:0.5rem 1.5rem; border-radius:40px; font-size:0.9rem;"></span>
-    <button class="btn" id="copyOrderBtn"><i class="far fa-clipboard"></i> copy order message</button> 
-  </div> -->
+    <span id="orderSummary" style="background:#e7dbcf; padding:0.5rem 1.5rem; border-radius:40px; font-size:0.9rem; width: 100%;"></span>
+    <!-- <button class="btn" id="copyOrderBtn"><i class="far fa-clipboard"></i> copy order message</button>  -->
+  </div> 
 
 
   <footer style="margin-top:3rem; text-align:center; color:#7e6e5d;">
@@ -1046,7 +1049,7 @@
 
       const fontCode = selectedFont.split(' ')[0];
       const designCode = selectedDesign.split(' ')[0];
-      const summary = `${customText} / ${selectedSize} ${selectedRibbon} / ink:${selectedInk} / ${fontCode} / ${designCode}`;
+      const summary = `${customText} | ${selectedSize}, ${selectedRibbon} | Ink: ${selectedInk} | ${fontCode} | ${designCode}`;
       document.getElementById('orderSummary').innerText = summary;
       document.getElementById('quickSummary').innerHTML = `<i class="fas fa-check-circle" style="color:#b0825c;"></i> <span>${summary}</span>`;
     }
@@ -1341,7 +1344,7 @@ document.getElementById('copyOrderBtn').addEventListener('click', () => {
         toast.classList.add('fade-out');
         setTimeout(() => toast.remove(), 300);
       }
-    }, 8000);
+    }, 30000);
   });
 });
 
