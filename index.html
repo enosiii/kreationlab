@@ -108,6 +108,33 @@
       border-radius: 40px;
     }
 
+    .brand-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .theme-toggle {
+      background: white;
+      border: 2px solid #b59d85;
+      color: #2e2e2e;
+      border-radius: 40px;
+      padding: 0.4rem 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.2s;
+    }
+
+    .theme-toggle:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 0 rgba(110, 79, 55, 0.35);
+    }
+
     /* Sticky Preview Area */
     .preview-area {
       background: #f0eae2;
@@ -258,6 +285,14 @@
       color: #b0825c;
     }
 
+    .order-summary {
+      background: #e7dbcf;
+      padding: 0.5rem 1.5rem;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      width: 100%;
+    }
+
     /* clickable cards */
     .section-title {
       font-size: 1.6rem;
@@ -267,6 +302,12 @@
       margin: 2rem 0 1.5rem;
       scroll-margin-top: 7rem; /* Helps with anchor scrolling */
     }
+
+    .section-title i {
+      color: #b0825c;
+      font-size: 1.8rem;
+    }
+
     .card-grid {
       display: flex;
       flex-wrap: wrap;
@@ -674,6 +715,124 @@
       transform: translateY(-2px);
       box-shadow: 0 7px 0 #6e4f37;
     }
+
+    body.dark-mode {
+      background: #17130f;
+      color: #f1e7dc;
+    }
+
+    body.dark-mode .container {
+      background: #221b15;
+      box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);
+    }
+
+    body.dark-mode .brand-bar {
+      border-bottom-color: #5f4f3f;
+    }
+
+    body.dark-mode .logo h1 span {
+      background: #604934;
+      color: #f1e7dc;
+    }
+
+    body.dark-mode .logo img {
+      filter: brightness(0) invert(1);
+    }
+
+    body.dark-mode .tagline {
+      background: #3a2f25;
+      color: #f1e7dc;
+    }
+
+    body.dark-mode .theme-toggle {
+      background: #3a2f25;
+      color: #f1e7dc;
+      border-color: #8e7258;
+    }
+
+    body.dark-mode .preview-area {
+      background: #2a2119;
+      border-color: #8e7258;
+    }
+
+    body.dark-mode .preview-header {
+      background: rgba(255,255,255,0.08);
+    }
+
+    body.dark-mode .preview-toggle-btn {
+      background: #2c2219;
+      color: #f1e7dc;
+      border-color: #8e7258;
+    }
+
+    body.dark-mode .section-title {
+      color: #f1e7dc;
+      border-left-color: #b0825c;
+    }
+
+    body.dark-mode .card-grid {
+      background: #2a2119;
+      border-color: #5a4a3b;
+    }
+
+    body.dark-mode .card-item {
+      background: #352a20;
+      color: #f1e7dc;
+      box-shadow: none;
+    }
+
+    body.dark-mode .card-item.selected {
+      background: #4a3728;
+      box-shadow: 0 4px 0 #3a2a1d;
+    }
+
+    body.dark-mode .dynamic-fields {
+      background: #3a2f25;
+    }
+
+    body.dark-mode input,
+    body.dark-mode select {
+      background: #2c2219;
+      color: #f1e7dc;
+      border-color: #8e7258;
+    }
+
+    body.dark-mode .file-upload label {
+      background: #2c2219;
+      color: #f1e7dc;
+      border-color: #8e7258;
+    }
+
+    body.dark-mode .quick-summary {
+      background: rgba(255,255,255,0.08);
+      color: #f1e7dc;
+    }
+
+    body.dark-mode .order-summary {
+      background: #3a2f25;
+      color: #f1e7dc;
+    }
+
+    body.dark-mode .scroll-top {
+      background: #8e6544;
+      box-shadow: 0 5px 0 #5b402c;
+    }
+
+    body.dark-mode .toast-body {
+      background: #2a2119;
+      color: #f1e7dc;
+      border-bottom-color: #4f3f31;
+    }
+
+    body.dark-mode .toast-footer {
+      background: #221b15;
+    }
+
+    body.dark-mode .toast-footer button.secondary {
+      background: #4f3f31;
+      color: #f1e7dc;
+      box-shadow: 0 3px 0 #3a2d22;
+    }
     
     /* Responsive adjustments */
     @media (max-width: 768px) {
@@ -707,13 +866,19 @@
         kreation<span>lab.</span>
       </h1>
     </div>
-    <div class="tagline"><i class="fas fa-ribbon"></i> your custom ribbon</div>
+    <div class="brand-actions">
+      <div class="tagline"><i class="fas fa-ribbon"></i> your custom ribbon</div>
+      <button id="themeToggleBtn" class="theme-toggle" type="button" aria-label="Toggle dark mode">
+        <i class="fas fa-moon"></i>
+        <span id="themeToggleLabel">Dark</span>
+      </button>
+    </div>
   </div>
 
   <!-- STICKY PREVIEW AREA - MOVED TO TOP -->
   <div class="preview-area">
     <div class="preview-header">
-      <h3><i class="fas fa-eye"></i> Live Preview</h3>
+      <h3><i class="fas fa-eye" style="color: #b0825c;"></i> Live Preview</h3>
       <div class="preview-controls">
         <button id="staticViewBtn" class="preview-toggle-btn active">
           <i class="fas fa-pause"></i> Static
@@ -735,24 +900,31 @@
 
   
   <!-- DESIGN STYLE -->
-  <div class="section-title">📐 1. Design Style</div>
+  <div class="section-title">
+        <i class="fas fa-pencil-ruler"></i> 1. Design Style
+  </div>
   <div class="card-grid" id="designGrid"></div>
 
   <!-- main text input -->
   <div style="margin: 1.5rem 0;">
-    <label><strong>✏️ Custom Text</strong></label>
+    <label><i class="fas fa-pen"></i> <strong>Custom Text</strong></label>
     <input type="text" id="customText" placeholder="e.g. Your Name" value="Kreation Lab" style="width:100%; max-width:500px;">
   </div>
   <!-- dynamic extra inputs (date, logo) -->
   <div id="dynamicDesignFields" class="dynamic-fields hidden"></div>
   
   <!-- RIBBON COLOR -->
-  <div class="section-title">🎀 2. Ribbon Color</div>
+  <div class="section-title">
+    <i class="fas fa-ribbon"></i> 2. Ribbon Color
+  </div>
   <div class="card-grid" id="ribbonColorGrid"></div>
   <p style="margin-top:1rem"><i class="fas fa-info-circle"></i> digital colors for reference only · actual ribbon shades may differ slightly</p>
 
   <!-- RIBBON SIZE -->
-  <div class="section-title">📏 3. Ribbon Size</div>
+  <div class="section-title">
+    <i class="fas fa-ruler"></i> 3. Ribbon Size
+
+  </div>
   <div class="card-grid" id="sizeGrid">
     <div class="card-item" data-size="15mm">15 mm / 1/2"</div>
     <div class="card-item" data-size="20mm">20 mm / 3/4"</div>
@@ -761,11 +933,14 @@
   <p style="margin-top:1rem"><i class="fas fa-info-circle"></i> 1 roll = 50 yards or 45 meter</p>
 
   <!-- INK COLOR -->
-  <div class="section-title">🖋️ 4. Ink Color</div>
+  <div class="section-title">
+<i class="fas fa-fill-drip"></i> 4. Ink Color
+  </div>
   <div class="card-grid" id="inkGrid"></div>
 
   <!-- FONT STYLE -->
-  <div class="section-title">🔤 5. Font Style</div>
+  <div class="section-title">
+    <i class="fas fa-font"></i> 5. Font Style</div>
   <div class="card-grid" id="fontGrid"></div>
 
 
@@ -773,7 +948,7 @@
   <!-- copy summary -->
   
   <div style="display:flex; gap:1rem; align-items:center; margin:2rem 0; flex-wrap: wrap;">
-    <span id="orderSummary" style="background:#e7dbcf; padding:0.5rem 1.5rem; border-radius:40px; font-size:0.9rem; width: 100%;"></span>
+    <span id="orderSummary" class="order-summary"></span>
     <!-- <button class="btn" id="copyOrderBtn"><i class="far fa-clipboard"></i> copy order message</button>  -->
   </div> 
 
@@ -1135,7 +1310,7 @@
         if (!dateValue) dateValue = today;
         const dateDiv = document.createElement('div');
         dateDiv.className = 'field-group';
-        dateDiv.innerHTML = `<label>📅 Date:</label><input type="date" id="designDateInput" value="${dateValue}">`;
+        dateDiv.innerHTML = `<label><i class="far fa-calendar-alt"></i> Date:</label><input type="date" id="designDateInput" value="${dateValue}">`;
         container.appendChild(dateDiv);
       }
       if (needsLogo) {
@@ -1421,6 +1596,46 @@ document.getElementById('copyOrderBtn').addEventListener('click', () => {
 </script>
 
 <script src="pwa-install.js"></script>
+
+<script>
+  (function() {
+    const storageKey = 'kreationlab-theme';
+    const btn = document.getElementById('themeToggleBtn');
+    const label = document.getElementById('themeToggleLabel');
+
+    function applyTheme(theme) {
+      const isDark = theme === 'dark';
+      document.body.classList.toggle('dark-mode', isDark);
+      if (label) label.textContent = isDark ? 'Light' : 'Dark';
+      const icon = btn ? btn.querySelector('i') : null;
+      if (icon) {
+        icon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+      }
+    }
+
+    let savedTheme = null;
+    try {
+      savedTheme = localStorage.getItem(storageKey);
+    } catch (e) {
+      savedTheme = null;
+    }
+
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    applyTheme(savedTheme || (prefersDark ? 'dark' : 'light'));
+
+    if (btn) {
+      btn.addEventListener('click', () => {
+        const nextTheme = document.body.classList.contains('dark-mode') ? 'light' : 'dark';
+        applyTheme(nextTheme);
+        try {
+          localStorage.setItem(storageKey, nextTheme);
+        } catch (e) {
+          // Ignore storage failures and keep runtime toggle behavior.
+        }
+      });
+    }
+  })();
+</script>
 
 <!-- Social Media Footer -->
 <link rel="stylesheet" href="social-footer.css">
